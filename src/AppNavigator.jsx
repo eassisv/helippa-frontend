@@ -1,7 +1,14 @@
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
-import routes from "./routes";
+import { createSwitchNavigator, createAppContainer } from "react-navigation";
 
-const AppNavigator = createStackNavigator(routes);
+import BeforeLoginNavigator from "./routes/BeforeLoginNavigator";
+
+const AppNavigator = createSwitchNavigator(
+  {
+    BeforeLogin: BeforeLoginNavigator
+  },
+  {
+    initialRouteName: "BeforeLogin"
+  }
+);
 
 export default createAppContainer(AppNavigator);
