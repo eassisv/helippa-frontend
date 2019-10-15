@@ -22,6 +22,9 @@
     },
     "packagerOpts": {
       "sourceExts": ["js", "json", "jsx"]
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#ffa500"
     }
   }
 }
