@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Image, StyleSheet, Dimensions } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { View, Image, Dimensions } from "react-native";
 import Modal from "react-native-modal";
+import styles from "../styles";
 
 const img = require("../../assets/logo-e-escrita-transparente-vertical.png");
+
+const { width, height } = Dimensions.get("window");
 
 const InitialModalLogo = ({ visible, onDismiss }) => {
   return (
@@ -17,7 +19,16 @@ const InitialModalLogo = ({ visible, onDismiss }) => {
       onSwipeComplete={() => onDismiss()}
       style={styles.container}
     >
-      <View style={[styles.container, styles.modal]}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: "orange",
+            width,
+            height
+          }
+        ]}
+      >
         <Image
           source={img}
           style={{ width: "75%", height: "75%" }}
@@ -28,20 +39,5 @@ const InitialModalLogo = ({ visible, onDismiss }) => {
     </Modal>
   );
 };
-
-const { width, height } = Dimensions.get("window");
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  modal: {
-    backgroundColor: "orange",
-    width,
-    height
-  }
-});
 
 export default InitialModalLogo;
