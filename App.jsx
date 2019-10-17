@@ -11,6 +11,12 @@ import {
   Button
 } from "native-base";
 
+const styles = StyleSheet.create({
+  buttons: {
+    flexDirection: "row"
+  }
+});
+
 const App = () => {
   return (
     <Container>
@@ -34,7 +40,7 @@ const App = () => {
             <Input />
           </Item>
         </Form>
-        <View>
+        <View style={styles.buttons}>
           <Button>
             <Text>Cancelar</Text>
           </Button>
