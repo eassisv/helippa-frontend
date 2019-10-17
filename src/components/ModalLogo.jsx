@@ -1,13 +1,12 @@
 import React from "react";
 import { View, Image, Dimensions } from "react-native";
 import Modal from "react-native-modal";
+import PropTypes from "prop-types";
 import styles from "../styles";
-
-const img = require("../../assets/logo-e-escrita-transparente-vertical.png");
 
 const { width, height } = Dimensions.get("window");
 
-const InitialModalLogo = ({ visible, onDismiss }) => {
+const ModalLogo = ({ visible, onDismiss, img }) => {
   return (
     <Modal
       isVisible={visible}
@@ -40,4 +39,14 @@ const InitialModalLogo = ({ visible, onDismiss }) => {
   );
 };
 
-export default InitialModalLogo;
+ModalLogo.propTypes = {
+  visible: PropTypes.bool,
+  onDismiss: PropTypes.func
+};
+
+ModalLogo.defaultProps = {
+  visible: false,
+  onDismiss: () => {}
+};
+
+export default ModalLogo;
