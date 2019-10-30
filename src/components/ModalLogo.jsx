@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import styles from "../styles";
 
 const { width, height } = Dimensions.get("window");
+const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
 
-const ModalLogo = ({ visible, onDismiss, img }) => {
+const ModalLogo = ({ visible, onDismiss }) => {
   return (
     <Modal
       isVisible={visible}
@@ -29,7 +30,7 @@ const ModalLogo = ({ visible, onDismiss, img }) => {
         ]}
       >
         <Image
-          source={img}
+          source={logo}
           style={{ width: "75%", height: "75%" }}
           resizeMode="contain"
           resizeMethod="scale"
