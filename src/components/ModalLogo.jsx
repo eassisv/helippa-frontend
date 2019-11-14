@@ -3,9 +3,11 @@ import { View, Image, Dimensions } from "react-native";
 import Modal from "react-native-modal";
 import PropTypes from "prop-types";
 import styles from "../styles";
+import TitleText from "./TitleText";
+import JumpingIcon from "./JumpingIcon";
 
 const { width, height } = Dimensions.get("window");
-const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
+const logo = require("../../assets/logo-e-escrita-transparente-vertical2.png");
 
 const ModalLogo = ({ visible, onDismiss }) => {
   return (
@@ -31,9 +33,18 @@ const ModalLogo = ({ visible, onDismiss }) => {
       >
         <Image
           source={logo}
-          style={{ width: "75%", height: "75%" }}
+          style={{ width: "50%", height: "50%", marginBottom: "10%" }}
           resizeMode="contain"
           resizeMethod="scale"
+        />
+        <TitleText color="#ffffffdd" align="center">
+          O conhecimento muda o mundo e queremos oferecer a mudança
+        </TitleText>
+        <JumpingIcon
+          style={{ marginTop: "10%" }}
+          name="chevron-double-up"
+          color="#ffffffdd"
+          size={48}
         />
       </View>
     </Modal>
