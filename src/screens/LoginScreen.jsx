@@ -1,8 +1,8 @@
 import React from "react";
-import { Alert, View, Image, TextInput, Button } from "react-native";
+import { Alert, View, Image, TextInput, Button, StatusBar } from "react-native";
 
-import ModalLogo from "../components/ModalLogo";
 import Styles from "../styles";
+import ModalLogo from "../components/ModalLogo";
 
 const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
 
@@ -17,30 +17,32 @@ export default class LoginScreen extends React.Component {
   }
 
   onLogin() {
-    const { username, password } = this.state;
+    const { email, password } = this.state;
 
-    Alert.alert("Credentials", `${username} + ${password}`);
+    Alert.alert("Credentials", `${email} + ${password}`);
+  }
+
+  dismissModal() {
+    StatusBar.setBackgroundColor("darkcyan");
+    this.setState({ showModal: false });
   }
 
   render() {
-    const { showModal } = this.state;
+    const { email, password, showModal } = this.state;
     return (
       <View style={Styles.darkcyanContainer}>
-        <ModalLogo
-          visible={showModal}
-          onDismiss={() => this.setState({ showModal: false })}
-        />
+        <ModalLogo visible={showModal} onDismiss={() => this.dismissModal()} />
         <Image source={logo} style={Styles.logo} />
         <View style={{ flex: 3 }}>
           <TextInput
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
+            value={email}
+            onChangeText={input => this.setState({ email: input })}
             placeholder="Email"
             style={Styles.input}
           />
           <TextInput
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
+            value={password}
+            onChangeText={input => this.setState({ password: input })}
             placeholder="Password"
             secureTextEntry
             style={Styles.input}
@@ -48,7 +50,7 @@ export default class LoginScreen extends React.Component {
           <Button
             title="Login"
             style={Styles.input}
-            onPress={this.onLogin.bind(this)}
+            onPress={() => this.onLogin()}
           />
         </View>
       </View>
