@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   }
 });
-
+// style={{width: wp('100%'), height: hp('100%')}}
 const App = () => {
   return (
     <Container>
-      <Content>
+      <Content contentContainerStyle={{ flex: 1, justifyContent: "center" }}>
         <Text>Informações pessoais</Text>
         <Form>
           <Item floatingLabel>
