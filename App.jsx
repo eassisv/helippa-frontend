@@ -12,39 +12,55 @@ import {
 } from "native-base";
 
 const styles = StyleSheet.create({
-  buttons: {
-    flexDirection: "row"
+  buttonsLine: {
+    flexDirection: "row",
+    width: "80%",
+    justifyContent: "space-between"
+  },
+  button: {
+    width: "43.75%",
+    alignItems: "center"
+  },
+  content: {
+    flex: 1,
+    justifyContent: "space-around",
+    backgroundColor: "darkcyan",
+    alignItems: "center"
+  },
+  input: {
+    // alignSelf: "stretch"
+    width: "80%"
   }
 });
-// style={{width: wp('100%'), height: hp('100%')}}
+
 const App = () => {
   return (
     <Container>
-      <Content contentContainerStyle={{ flex: 1, justifyContent: "center" }}>
+      <Content contentContainerStyle={styles.content}>
         <Text>Informações pessoais</Text>
         <Form>
-          <Item floatingLabel>
+          <Item floatingLabel style={styles.input}>
             <Label>Nome Completo</Label>
             <Input />
           </Item>
-          <Item floatingLabel>
+          <Item floatingLabel style={styles.input}>
             <Label>E-mail</Label>
             <Input />
           </Item>
-          <Item floatingLabel>
+          <Item floatingLabel style={styles.input}>
             <Label>Senha</Label>
             <Input />
           </Item>
-          <Item floatingLabel>
+          <Item floatingLabel style={styles.input}>
             <Label>Confirmar Senha</Label>
             <Input />
           </Item>
         </Form>
-        <View style={styles.buttons}>
-          <Button>
+        <View style={styles.buttonsLine}>
+          <Button style={styles.button}>
             <Text>Cancelar</Text>
           </Button>
-          <Button>
+          <Button style={styles.button}>
             <Text>Próximo</Text>
           </Button>
         </View>
