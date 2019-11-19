@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
 import Events from './components/events'
+import Search from './components/search'
 
 const App = () => (
   <View>
+      <Search></Search>
     <Events></Events>
   </View>
 );
