@@ -1,100 +1,28 @@
 import React, { Component } from "react";
 import { View, Text, FlatList, StyleSheet, ScrollView, Image,TouchableOpacity} from "react-native";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-export default class Events extends Component {
-    state = {
-        data: [
-            { id: 0, full_name: "Curso de Pyhton" ,image: require("../assets/images/evento.png") },
-            { id: 1, full_name: "Pré-Enem"  ,image: require("../assets/images/evento2.png")},
-            { id: 2, full_name: "Curso de Culinária"  ,image: require("../assets/images/evento3.png")},
-            { id: 3, full_name: "Curso de Fotografia"  ,image: require("../assets/images/evento4.png")},
-            { id: 4, full_name: "Curso de Violino"  ,image: require("../assets/images/evento5.png")}
-        ]
-    };
+import Event from './event'
+const Events =({data,titulo}) =>{
     
-    renderItem = ({ item }) => (  
-    <View style={styles.listItem}>
-        <TouchableOpacity>
-            <Image style={styles.img} source={
-                                item.image
-                                }></Image>
-        </TouchableOpacity>
-        <Text style={styles.textEvent}>{item.full_name}</Text>
-    </View>
+    renderItem = ({item}) => (
+      <Event imagem ={item.image} nome = {item.full_name} tam={'15%'}></Event>
     );
-    renderItem2 = ({ item }) => (  
-      <View style={styles.listItem}>
-          <TouchableOpacity>
-              <Image style={styles.img2} source={
-                                  item.image
-                                  }></Image>
-          </TouchableOpacity>
-          <Text style={styles.textEvent2}>{item.full_name}</Text>
-      </View>
-      );
-    // unsplash imagens colocar diferentes e tal.
-    render() {
-        return (
-            <ScrollView>
-            <Text style={styles.text1}>Não se esqueça</Text>
-            <View>
-              <FlatList
-                horizontal
-                style={styles.list1}
-                contentContainerStyle={styles.list}
-                data={this.state.data}
-                renderItem={this.renderItem2}
-                keyExtractor={item => item.id}
-              />
-            </View>
-            <Text style={styles.text2}>Para você</Text>
-            <View>
-              <FlatList
-                horizontal
-                style={styles.list}
-                contentContainerStyle={styles.list}
-                data={this.state.data}
-                renderItem={this.renderItem}
-                keyExtractor={item => item.id}
-              />
-            </View>
-            <Text style={styles.text2}>Destaques</Text>
-            <View>
-              <FlatList
-                horizontal
-                style={styles.list}
-                contentContainerStyle={styles.list}
-                data={this.state.data}
-                renderItem={this.renderItem}
-                keyExtractor={item => item.id}
-              />
-            </View>
-            <Text style={styles.text2}>Novidades</Text>
-            <View>
-              <FlatList
-                horizontal
-                style={styles.list}
-                contentContainerStyle={styles.list}
-                data={this.state.data}
-                renderItem={this.renderItem}
-                keyExtractor={item => item.id}
-              />
-            </View>
-            <Text style={styles.text2}>Perto de você</Text>
-            <View>
-              <FlatList
-                horizontal
-                style={styles.list}
-                contentContainerStyle={styles.list}
-                data={this.state.data}
-                renderItem={this.renderItem}
-                keyExtractor={item => item.id}
-              />
-            </View>
-          </ScrollView>
-        );
-        }
-    }
+    return (
+      <ScrollView>
+        <Text style={styles.text1}>{titulo}</Text>
+        <View>
+          <FlatList
+            horizontal
+            style={styles.list1}
+            contentContainerStyle={styles.list}
+            data={data}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      </ScrollView>
+    );
+};
     const styles = StyleSheet.create({
         img:{
             marginTop: hp('1%'),
@@ -150,4 +78,6 @@ export default class Events extends Component {
           justifyContent: "center"
         }
       });
+
+export default Events;
       
