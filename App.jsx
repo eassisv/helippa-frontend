@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 
 const App = () => (
   <View style={styles.container}>
-    <Text>Components</Text>
+    <Text>Hello World
+    </Text>
   </View>
 );
 
@@ -15,5 +16,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
 
 export default App;
