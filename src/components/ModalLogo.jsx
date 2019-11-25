@@ -37,6 +37,12 @@ const ModalLogo = ({ visible, onDismiss }) => {
           resizeMode="contain"
           resizeMethod="scale"
         />
+        <TitleText color="#ffffffee" align="center">
+          O conhecimento muda o mundo e queremos oferecer a mudança
+        </TitleText>
+        <View style={{ marginTop: "20%" }}>
+          <JumpingIcon name="chevron-double-up" color="#ffffff" />
+        </View>
       </View>
     </Modal>
   );

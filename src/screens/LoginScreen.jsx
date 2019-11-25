@@ -1,25 +1,17 @@
 import React from "react";
-import { Alert, View, Image, TextInput, Button, StatusBar } from "react-native";
+import { View, Image, StatusBar } from "react-native";
 
-import Styles from "../styles";
+import styles from "../styles";
 import ModalLogo from "../components/ModalLogo";
+import FacebookLoginButton from "../components/FacebookLoginButton";
 
 const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showModal: true,
-      email: "",
-      password: ""
-    };
-  }
-
-  onLogin() {
-    const { email, password } = this.state;
-
-    Alert.alert("Credentials", `${email} + ${password}`);
+    this.state = { showModal: false };
+    StatusBar.setBackgroundColor("orange");
   }
 
   dismissModal() {
@@ -28,30 +20,18 @@ export default class LoginScreen extends React.Component {
   }
 
   render() {
-    const { email, password, showModal } = this.state;
+    const { showModal } = this.state;
     return (
-      <View style={Styles.darkcyanContainer}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: "darkcyan", borderWidth: 1, borderColor: "red" }
+        ]}
+      >
         <ModalLogo visible={showModal} onDismiss={() => this.dismissModal()} />
-        <Image source={logo} style={Styles.logo} />
-        <View style={{ flex: 3 }}>
-          <TextInput
-            value={email}
-            onChangeText={input => this.setState({ email: input })}
-            placeholder="Email"
-            style={Styles.input}
-          />
-          <TextInput
-            value={password}
-            onChangeText={input => this.setState({ password: input })}
-            placeholder="Password"
-            secureTextEntry
-            style={Styles.input}
-          />
-          <Button
-            title="Login"
-            style={Styles.input}
-            onPress={() => this.onLogin()}
-          />
+        <Image source={logo} style={{ width: "50%", height: "50%" }} />
+        <View style={{ width: "80%" }}>
+          <FacebookLoginButton />
         </View>
       </View>
     );
