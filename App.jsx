@@ -3,8 +3,15 @@ import { View } from "react-native";
 import Select from "./src/components/Select";
 
 const App = () => (
-  <View>
-    <Select></Select>
+  <View
+    style={{
+      backgroundColor: "red",
+      flex: 1,
+      alingItems: "center",
+      justifyContent: "center"
+    }}
+  >
+    <Select />
   </View>
 );
 
