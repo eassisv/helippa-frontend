@@ -9,6 +9,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import * as Facebook from "expo-facebook";
+import axios from "axios";
 
 import styles from "../styles";
 import ModalLogo from "../components/ModalLogo";
@@ -32,32 +33,54 @@ export default class LoginScreen extends React.Component {
     this.setState({ showModal: false });
   };
 
-  goToHomeScreen = fbtoken => {
+  goToHomeScreen = (fbtoken, apitoken) => {
     // eslint-disable-next-line react/prop-types
     const { navigation } = this.props;
     // eslint-disable-next-line react/prop-types
-    navigation.navigate("HomeScreen", { fbtoken });
+    navigation.navigate("HomeScreen", { fbtoken, apitoken });
   };
 
   componentDidMount = async () => {
-    const fbtoken = await AsyncStorage.getItem("fbtoken");
-    if (fbtoken) {
-      this.goToHomeScreen(fbtoken);
-    }
+    try {
+      const { fbtoken } = await AsyncStorage.getItem("fbtoken");
+      // const { apitoken } = await AsyncStorage.getItem("apitoken");
+      // console.log(fbtoken, apitoken);
+      // eslint-disable-next-line no-empty
+      if (fbtoken) {
+        this.goToHomeScreen(fbtoken);
+      }
+    } catch (error) {}
   };
 
   facebookLogin = async () => {
     this.setState({ loading: true });
     try {
-      const { type, fbtoken } = await Facebook.logInWithReadPermissionsAsync(
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync(
         clientId,
         {
           permissions: ["public_profile", "email"]
         }
       );
       if (type === "success") {
-        await AsyncStorage.setItem("fbtoken", fbtoken);
-        this.goToHomeScreen(fbtoken);
+        // try {
+        // console.log("fbtoken:", token);
+
+        // const res = await fetch("http://5b7fd052.ngrok.io/api/authenticate", {
+        //   method: "POST",
+        //   body: JSON.stringify({ fbtoken: token })
+        // });
+
+        // console.log("res:", res);
+
+        // await AsyncStorage.multiSet([
+        //   ["fbtoken", token],
+        //   ["apitoken", apitoken]
+        // ]);
+        await AsyncStorage.setItem("fbtoken", token);
+        this.goToHomeScreen(token);
+        // } catch (e) {
+        //   console.log("api:", e);
+        // }
       }
     } catch (e) {
       this.setState({ loading: false });
