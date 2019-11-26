@@ -32,32 +32,32 @@ export default class LoginScreen extends React.Component {
     this.setState({ showModal: false });
   };
 
-  goToHomeScreen = token => {
+  goToHomeScreen = fbtoken => {
     // eslint-disable-next-line react/prop-types
     const { navigation } = this.props;
     // eslint-disable-next-line react/prop-types
-    navigation.navigate("HomeScreen", { token });
+    navigation.navigate("HomeScreen", { fbtoken });
   };
 
   componentDidMount = async () => {
-    const token = await AsyncStorage.getItem("token");
-    if (token) {
-      this.goToHomeScreen(token);
+    const fbtoken = await AsyncStorage.getItem("fbtoken");
+    if (fbtoken) {
+      this.goToHomeScreen(fbtoken);
     }
   };
 
   facebookLogin = async () => {
     this.setState({ loading: true });
     try {
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+      const { type, fbtoken } = await Facebook.logInWithReadPermissionsAsync(
         clientId,
         {
           permissions: ["public_profile", "email"]
         }
       );
       if (type === "success") {
-        await AsyncStorage.setItem("token", token);
-        this.goToHomeScreen(token);
+        await AsyncStorage.setItem("fbtoken", fbtoken);
+        this.goToHomeScreen(fbtoken);
       }
     } catch (e) {
       this.setState({ loading: false });
