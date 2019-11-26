@@ -1,19 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
+import Select from "./src/components/Select";
 
 const App = () => (
-  <View style={styles.container}>
-    <Text>Hello World!</Text>
+  <View>
+    <Select></Select>
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    backgroundColor: "#fff",
-    flex: 1,
-    justifyContent: "center"
-  }
-});
 
 export default App;
