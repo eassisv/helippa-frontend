@@ -19,6 +19,11 @@ const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
 
 const clientId = "462747724359304";
 
+const instance = axios.create({
+  baseURL: "http://5b7fd052.ngrok.io/"
+  // baseURL: "http://backend-helippa.herokuapp.com/",
+});
+
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -36,18 +41,21 @@ export default class LoginScreen extends React.Component {
   goToHomeScreen = (fbtoken, apitoken) => {
     // eslint-disable-next-line react/prop-types
     const { navigation } = this.props;
+
     // eslint-disable-next-line react/prop-types
     navigation.navigate("HomeScreen", { fbtoken, apitoken });
   };
 
   componentDidMount = async () => {
     try {
-      const { fbtoken } = await AsyncStorage.getItem("fbtoken");
-      // const { apitoken } = await AsyncStorage.getItem("apitoken");
+      const fbtoken = await AsyncStorage.getItem("fbtoken");
+      const apitoken = await AsyncStorage.getItem("apitoken");
       // console.log(fbtoken, apitoken);
       // eslint-disable-next-line no-empty
-      if (fbtoken) {
-        this.goToHomeScreen(fbtoken);
+
+      console.log(fbtoken, " ", apitoken);
+      if (!!fbtoken && !!apitoken) {
+        this.goToHomeScreen(fbtoken, apitoken);
       }
     } catch (error) {}
   };
@@ -62,30 +70,30 @@ export default class LoginScreen extends React.Component {
         }
       );
       if (type === "success") {
-        // try {
-        // console.log("fbtoken:", token);
+        try {
+          const res = await instance.post(
+            "api/authenticate/",
+            { fbtoken: token },
+            { headers: { fbtoken: token } }
+          );
 
-        // const res = await fetch("http://5b7fd052.ngrok.io/api/authenticate", {
-        //   method: "POST",
-        //   body: JSON.stringify({ fbtoken: token })
-        // });
+          const apitoken = res.data.token;
 
-        // console.log("res:", res);
+          console.log("blabla", token, " ", apitoken);
 
-        // await AsyncStorage.multiSet([
-        //   ["fbtoken", token],
-        //   ["apitoken", apitoken]
-        // ]);
-        await AsyncStorage.setItem("fbtoken", token);
-        this.goToHomeScreen(token);
-        // } catch (e) {
-        //   console.log("api:", e);
-        // }
+          await AsyncStorage.setItem("fbtoken", token);
+          await AsyncStorage.setItem("apitoken", apitoken);
+          this.goToHomeScreen(token, apitoken);
+        } catch (error) {
+          Alert.alert(
+            "Erro ao autenticar com a API, por favor tente novamente mais tarde"
+          );
+        }
       }
     } catch (e) {
       this.setState({ loading: false });
       Alert.alert(
-        "Ocorreu um erro ao tentar logar, por favor novamente mais tarde"
+        "Ocorreu um erro ao tentar logar, por favor tente novamente mais tarde"
       );
     }
   };

@@ -24,7 +24,8 @@ export default class HomeScreen extends Component {
       name: "",
       email: "",
       picture: {},
-      token: "",
+      fbtoken: "",
+      apitoken: "",
       loadingImage: true
     };
     StatusBar.setBackgroundColor("darkcyan");
@@ -32,21 +33,23 @@ export default class HomeScreen extends Component {
 
   componentDidMount = async () => {
     const { navigation } = this.props;
-    const token = navigation.getParam("token", "");
-    if (token) {
+    const { fbtoken, apitoken } = navigation.state.params;
+
+    if (!!fbtoken && !!apitoken) {
       try {
         const res = await axios.get("https://graph.facebook.com/v5.0/me", {
           params: {
-            access_token: token,
+            access_token: fbtoken,
             fields: `name,email,picture.width(${width})`
           }
         });
-        const { id, name, email, picture } = res.data;
+        const { name, email, picture } = res.data;
 
         this.setState({
           name,
           email,
-          token,
+          fbtoken,
+          apitoken,
           picture: picture.data
         });
       } catch (error) {
@@ -60,12 +63,14 @@ export default class HomeScreen extends Component {
 
   logOut = async () => {
     const { navigation } = this.props;
-    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("fbtoken");
+    await AsyncStorage.removeItem("apitoken");
+
     navigation.navigate("LoginScreen", { showModal: false });
   };
 
   render() {
-    const { name, email, picture, loadingImage } = this.state;
+    const { name, email, picture, apitoken } = this.state;
 
     return (
       <View
@@ -110,6 +115,9 @@ export default class HomeScreen extends Component {
           {name}
         </Text>
         <Text style={{ color: "darkcyan" }}>{email}</Text>
+        <Text style={{ color: "darkcyan", textAlign: "center" }}>
+          {apitoken}
+        </Text>
         <TouchableOpacity
           style={{ marginTop: "15%" }}
           onPress={() => this.logOut()}
