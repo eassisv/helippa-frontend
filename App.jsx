@@ -3,7 +3,7 @@ import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import AppNavigator from "./src/AppNavigator";
 
-const verticalLogo = require("./assets/logo-e-escrita-transparente-vertical2.png");
+const verticalLogo = require("./assets/logo-e-escrita-transparente-vertical.png");
 
 const assets = [verticalLogo];
 

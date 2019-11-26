@@ -2,16 +2,25 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { FontAwesome } from "@expo/vector-icons";
+import PropTypes from "prop-types";
 
 const facebookColor = "#4267B2";
 
-const FacebookLoginButton = ({ onPress }) => {
+const FacebookButton = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <FontAwesome name="facebook-official" size={36} color={facebookColor} />
       <Text style={styles.text}>Entrar com o Facebook</Text>
     </TouchableOpacity>
   );
+};
+
+FacebookButton.propTypes = {
+  onPress: PropTypes.func
+};
+
+FacebookButton.defaultProps = {
+  onPress: () => {}
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +32,8 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     display: "flex",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    elevation: 1
   },
   text: {
     fontSize: 16,
@@ -32,4 +42,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FacebookLoginButton;
+export default FacebookButton;

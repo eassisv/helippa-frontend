@@ -7,7 +7,7 @@ import TitleText from "./TitleText";
 import JumpingIcon from "./JumpingIcon";
 
 const { width, height } = Dimensions.get("window");
-const logo = require("../../assets/logo-e-escrita-transparente-vertical2.png");
+const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
 
 const ModalLogo = ({ visible, onDismiss }) => {
   return (
