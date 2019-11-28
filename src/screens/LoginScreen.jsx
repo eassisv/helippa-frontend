@@ -19,9 +19,9 @@ const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
 
 const clientId = "462747724359304";
 
+// baseURL: "http://backend-helippa.herokuapp.com/"
 const instance = axios.create({
-  baseURL: "http://5b7fd052.ngrok.io/"
-  // baseURL: "http://backend-helippa.herokuapp.com/",
+  baseURL: "http://0a04a196.ngrok.io/"
 });
 
 export default class LoginScreen extends React.Component {
@@ -53,11 +53,12 @@ export default class LoginScreen extends React.Component {
       // console.log(fbtoken, apitoken);
       // eslint-disable-next-line no-empty
 
-      console.log(fbtoken, " ", apitoken);
       if (!!fbtoken && !!apitoken) {
         this.goToHomeScreen(fbtoken, apitoken);
       }
-    } catch (error) {}
+    } catch (error) {
+      this.setState({ loading: false });
+    }
   };
 
   facebookLogin = async () => {
@@ -79,15 +80,15 @@ export default class LoginScreen extends React.Component {
 
           const apitoken = res.data.token;
 
-          console.log("blabla", token, " ", apitoken);
-
           await AsyncStorage.setItem("fbtoken", token);
           await AsyncStorage.setItem("apitoken", apitoken);
           this.goToHomeScreen(token, apitoken);
         } catch (error) {
+          console.log(error);
           Alert.alert(
             "Erro ao autenticar com a API, por favor tente novamente mais tarde"
           );
+          this.setState({ loading: false });
         }
       }
     } catch (e) {
