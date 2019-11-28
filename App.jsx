@@ -13,9 +13,6 @@ export default class App extends Component {
     this.state = { loading: true };
   }
 
-<<<<<<< HEAD
-export default App;
-=======
   loadAssetsAsync = async () => Promise.all([Asset.loadAsync(assets)]);
 
   render() {
@@ -30,4 +27,3 @@ export default App;
     );
   }
 }
->>>>>>> login_screen
