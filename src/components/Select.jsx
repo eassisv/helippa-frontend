@@ -2,19 +2,32 @@ import React from "react";
 import { Picker } from "react-native";
 import PropTypes from "prop-types";
 
-const Select = ({ onClick, keys, names }) => {
-  return <Picker />;
+const Select = ({ selectedValue, onChange, items }) => {
+  return (
+    <Picker
+      selectedValue={selectedValue}
+      onValueChange={itemValue => onChange(itemValue)}
+    >
+      {items.map(item => {
+        return <Picker.Item label={item.label} value={item.value} />;
+      })}
+    </Picker>
+  );
 };
 
 Select.propTypes = {
-  onClick: PropTypes.func,
-  keys: PropTypes.arrayOf(PropTypes.string),
-  names: PropTypes.arrayOf(PropTypes.string)
+  selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  onChange: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    })
+  )
 };
 
 Select.defaultProps = {
-  onClick: () => {},
-  keys: [],
-  names: []
+  items: []
 };
 export default Select;
