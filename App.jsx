@@ -1,19 +1,33 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { Component } from "react";
+import { AppLoading } from "expo";
+import { Asset } from "expo-asset";
+import AppNavigator from "./src/AppNavigator";
 
-const App = () => (
-  <View style={styles.container}>
-    <Text>Hello World!</Text>
-  </View>
-);
+const verticalLogo = require("./assets/logo-e-escrita-transparente-vertical.png");
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    backgroundColor: "#fff",
-    flex: 1,
-    justifyContent: "center"
+const assets = [verticalLogo];
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { loading: true };
   }
-});
 
+<<<<<<< HEAD
 export default App;
+=======
+  loadAssetsAsync = async () => Promise.all([Asset.loadAsync(assets)]);
+
+  render() {
+    const { loading } = this.state;
+    return loading ? (
+      <AppLoading
+        startAsync={this.loadAssetsAsync}
+        onFinish={() => this.setState({ loading: false })}
+      />
+    ) : (
+      <AppNavigator />
+    );
+  }
+}
+>>>>>>> login_screen
