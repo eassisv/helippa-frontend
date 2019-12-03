@@ -1,10 +1,10 @@
 import React from "react";
-import { Picker } from "react-native";
+import { Picker, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 
 const Select = ({ selectedValue, onChange, items }) => {
   return (
-    <Picker
+    <Picker 
       selectedValue={selectedValue}
       onValueChange={itemValue => onChange(itemValue)}
     >
@@ -30,4 +30,8 @@ Select.propTypes = {
 Select.defaultProps = {
   items: []
 };
+
+const styles = StyleSheet.create({
+
+})
 export default Select;
