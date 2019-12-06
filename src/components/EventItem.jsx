@@ -19,7 +19,7 @@ export default class EventItem extends React.Component {
 
   render() {
     const { loading } = this.state;
-    const { image, label, width, height, fontSize } = this.props;
+    const { image, title, width, height, fontSize } = this.props;
     const styles = createStyle(width, fontSize);
 
     return (
@@ -31,11 +31,11 @@ export default class EventItem extends React.Component {
           onLoadStart={() => this.setLoadingOn()}
           onLoadEnd={() => this.setLoadingOff()}
         />
-        <View style={styles.labelWrapper}>
+        <View style={styles.titleWrapper}>
           {loading || !image ? (
             <View style={styles.loadingText} />
           ) : (
-            <Text style={styles.label}>{label}</Text>
+            <Text style={styles.title}>{title}</Text>
           )}
         </View>
       </TouchableOpacity>
@@ -48,11 +48,11 @@ const createStyle = (width, fontSize) =>
     container: {
       width
     },
-    label: {
+    title: {
       fontSize,
       color: "#444"
     },
-    labelWrapper: {
+    titleWrapper: {
       width: "100%",
       marginTop: 10
     },
@@ -65,7 +65,7 @@ const createStyle = (width, fontSize) =>
 
 EventItem.propTypes = {
   image: PropTypes.string,
-  label: PropTypes.string,
+  title: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fontSize: PropTypes.number
@@ -73,7 +73,7 @@ EventItem.propTypes = {
 
 EventItem.defaultProps = {
   image: null,
-  label: "",
+  title: "",
   width: 300,
   height: 200,
   fontSize: 16
