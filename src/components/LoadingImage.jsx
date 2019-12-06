@@ -2,8 +2,17 @@ import React from "react";
 import { View, Image, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 
-const LoadingImage = ({ source, width, height, onLoadStart, onLoadEnd }) => {
-  const image = typeof source === "string" ? { uri: source } : source;
+const LoadingImage = ({
+  source,
+  width,
+  height,
+  onLoadStart,
+  onLoadEnd,
+  resizeMethod,
+  resizeMode
+}) => {
+  const image =
+    typeof source === "string" ? { uri: source, cache: "reload" } : source;
   const styles = createStyles(width, height);
 
   return (
@@ -11,8 +20,8 @@ const LoadingImage = ({ source, width, height, onLoadStart, onLoadEnd }) => {
       <View style={styles.placeholder} />
       <Image
         source={image}
-        resizeMode="stretch"
-        resizeMethod="scale"
+        resizeMode={resizeMode}
+        resizeMethod={resizeMethod}
         style={styles.image}
         onLoadStart={onLoadStart}
         onLoadEnd={onLoadEnd}
@@ -43,6 +52,8 @@ LoadingImage.propTypes = {
   source: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  resizeMethod: PropTypes.string,
+  resizeMode: PropTypes.string,
   onLoadStart: PropTypes.func,
   onLoadEnd: PropTypes.func
 };
@@ -51,6 +62,8 @@ LoadingImage.defaultProps = {
   source: null,
   width: 300,
   height: 200,
+  resizeMethod: "scale",
+  resizeMode: "stretch",
   onLoadStart: () => {},
   onLoadEnd: () => {}
 };

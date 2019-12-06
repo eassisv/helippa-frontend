@@ -6,11 +6,15 @@ import LoadingImage from "./LoadingImage";
 export default class EventItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false };
+    this.state = { loading: true };
   }
 
-  toggleLoading() {
-    this.setState(state => ({ loading: !state.loading }));
+  setLoadingOn() {
+    this.setState({ loading: true });
+  }
+
+  setLoadingOff() {
+    this.setState({ loading: false });
   }
 
   render() {
@@ -24,11 +28,11 @@ export default class EventItem extends React.Component {
           source={image}
           width={width}
           height={height}
-          onLoadStart={() => this.toggleLoading()}
-          onLoadEnd={() => this.toggleLoading()}
+          onLoadStart={() => this.setLoadingOn()}
+          onLoadEnd={() => this.setLoadingOff()}
         />
         <View style={styles.labelWrapper}>
-          {loading ? (
+          {loading || !image ? (
             <View style={styles.loadingText} />
           ) : (
             <Text style={styles.label}>{label}</Text>
