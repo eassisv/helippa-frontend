@@ -11,8 +11,7 @@ const LoadingImage = ({
   resizeMethod,
   resizeMode
 }) => {
-  const image =
-    typeof source === "string" ? { uri: source, cache: "reload" } : source;
+  const image = typeof source === "string" ? { uri: source } : source;
   const styles = createStyles(width, height);
 
   return (
