@@ -19,11 +19,11 @@ export default class EventItem extends React.Component {
 
   render() {
     const { loading } = this.state;
-    const { image, title, width, height, fontSize } = this.props;
+    const { image, title, width, height, fontSize, onPress } = this.props;
     const styles = createStyle(width, fontSize);
 
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         <LoadingImage
           source={image}
           width={width}
@@ -46,11 +46,12 @@ export default class EventItem extends React.Component {
 const createStyle = (width, fontSize) =>
   StyleSheet.create({
     container: {
-      width
+      width,
+      margin: 10
     },
     title: {
       fontSize,
-      color: "#444"
+      color: "#777"
     },
     titleWrapper: {
       width: "100%",
@@ -66,6 +67,7 @@ const createStyle = (width, fontSize) =>
 EventItem.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
+  onPress: PropTypes.func,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fontSize: PropTypes.number
@@ -74,6 +76,7 @@ EventItem.propTypes = {
 EventItem.defaultProps = {
   image: null,
   title: "",
+  onPress: () => {},
   width: 300,
   height: 200,
   fontSize: 16
