@@ -14,7 +14,7 @@ const EventList = ({
   onEventPressed,
   onEndReached
 }) => {
-  const styles = createStyle(fontSize);
+  const styles = createStyle(fontSize, horizontal);
   const renderItem = item => (
     <EventItem
       image={item.image}
@@ -27,26 +27,33 @@ const EventList = ({
   );
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <FlatList
         data={events}
         horizontal={horizontal}
         renderItem={({ item }) => renderItem(item)}
         keyExtractor={item => item.event}
-        // onEndReached={() => onEndReached()}
-        // onEndReachedThreshold={1}
+        contentContainerStyle={styles.list}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        onEndReached={() => onEndReached()}
+        onEndReachedThreshold={1}
       />
     </View>
   );
 };
 
-const createStyle = fontSize =>
+const createStyle = (fontSize, horizontal) =>
   StyleSheet.create({
+    container: horizontal ? {} : { height: "100%" },
     title: {
       fontSize,
       fontWeight: "bold",
       color: "#444"
+    },
+    list: {
+      alignItems: "center"
     }
   });
 
@@ -59,7 +66,9 @@ EventList.propTypes = {
   horizontal: PropTypes.bool,
   eventWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   eventHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  eventFontSize: PropTypes.number
+  eventFontSize: PropTypes.number,
+  onEventPressed: PropTypes.func,
+  onEndReached: PropTypes.func
 };
 
 EventList.defaultProps = {
@@ -69,7 +78,9 @@ EventList.defaultProps = {
   horizontal: false,
   eventWidth: 300,
   eventHeight: 200,
-  eventFontSize: 16
+  eventFontSize: 16,
+  onEventPressed: () => null,
+  onEndReached: () => {}
 };
 
 export default EventList;
