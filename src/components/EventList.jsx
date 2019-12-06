@@ -50,7 +50,8 @@ const createStyle = (fontSize, horizontal) =>
     title: {
       fontSize,
       fontWeight: "bold",
-      color: "#444"
+      color: "#444",
+      marginHorizontal: horizontal ? 10 : 0
     },
     list: {
       alignItems: "center"

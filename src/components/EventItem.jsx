@@ -58,7 +58,7 @@ const createStyle = (width, fontSize) =>
       marginTop: 10
     },
     loadingText: {
-      height: fontSize,
+      height: fontSize + 4,
       width: "80%",
       backgroundColor: "#eee"
     }
