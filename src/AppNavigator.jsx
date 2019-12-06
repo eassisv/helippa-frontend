@@ -2,16 +2,16 @@ import { createSwitchNavigator, createAppContainer } from "react-navigation";
 
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import TestScreen from "./screens/TestScreen";
+import TestRouter from "./routes/TestRouter";
 
 const AppNavigator = createSwitchNavigator(
   {
-    TestScreen,
+    TestRouter,
     LoginScreen,
     HomeScreen
   },
   {
-    initialRouteName: "TestScreen"
+    initialRouteName: "TestRouter"
   }
 );
 
