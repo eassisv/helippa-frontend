@@ -1,25 +1,21 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import PropTypes from "prop-types";
-import LoadingImage from "./LoadingImage";
+import React from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
+import LoadingImage from './LoadingImage';
 
 export default class EventItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
-  }
-
-  setLoadingOn() {
-    this.setState({ loading: true });
+    this.state = {loading: true};
   }
 
   setLoadingOff() {
-    this.setState({ loading: false });
+    this.setState({loading: false});
   }
 
   render() {
-    const { loading } = this.state;
-    const { image, title, width, height, fontSize, onPress } = this.props;
+    const {loading} = this.state;
+    const {image, title, width, height, fontSize, onPress} = this.props;
     const styles = createStyle(width, fontSize);
 
     return (
@@ -28,7 +24,6 @@ export default class EventItem extends React.Component {
           source={image}
           width={width}
           height={height}
-          onLoadStart={() => this.setLoadingOn()}
           onLoadEnd={() => this.setLoadingOff()}
         />
         <View style={styles.titleWrapper}>
@@ -47,21 +42,21 @@ const createStyle = (width, fontSize) =>
   StyleSheet.create({
     container: {
       width,
-      margin: 10
+      margin: 10,
     },
     title: {
       fontSize,
-      color: "#777"
+      color: '#777',
     },
     titleWrapper: {
-      width: "100%",
-      marginTop: 10
+      width: '100%',
+      marginTop: 10,
     },
     loadingText: {
-      height: fontSize + 4,
-      width: "80%",
-      backgroundColor: "#eee"
-    }
+      height: fontSize + 2,
+      width: '80%',
+      backgroundColor: '#eee',
+    },
   });
 
 EventItem.propTypes = {
@@ -70,14 +65,14 @@ EventItem.propTypes = {
   onPress: PropTypes.func,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  fontSize: PropTypes.number
+  fontSize: PropTypes.number,
 };
 
 EventItem.defaultProps = {
   image: null,
-  title: "",
+  title: '',
   onPress: () => {},
   width: 300,
   height: 200,
-  fontSize: 16
+  fontSize: 16,
 };
