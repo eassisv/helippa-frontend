@@ -1,23 +1,40 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from "react";
-import { ScrollView, View } from "react-native";
-import EventItem from "../components/EventItem";
-import EventList from "../components/EventList";
+// import React, {Component} from 'react';
+// import {Text, View} from 'react-native';
+// import FastImage from 'react-native-fast-image';
+// import LoadingErrorImage from '../components/LoadingErrorImage';
+
+// export default class TestScreen extends Component {
+//   render() {
+//     return (
+//       <View
+//         style={{
+//           flex: 1,
+//           alignItems: 'center',
+//           justifyContent: 'center',
+//         }}>
+//         <LoadingErrorImage width={320} height={210} />
+//       </View>
+//     );
+//   }
+// }
+
+import React, {Component} from 'react';
+import {ScrollView, View} from 'react-native';
+import EventItem from '../components/EventItem';
+import EventList from '../components/EventList';
 
 const useds = {};
 const random = () => Math.round(Math.random() * 1000);
 
 const getEvent = () => {
   let event;
-  do event = random();
+  do {event = random();}
   while (useds[event] !== undefined);
   useds[event] = event;
   return {
     event: `${event}`,
     image: `http://picsum.photos/id/${event}/300/200/`,
-    title: `Eventinho ${event}`
+    title: `Eventinho ${event}`,
   };
 };
 
@@ -32,7 +49,7 @@ const getEvent = () => {
 export default class TestScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { events: [], rememberMe: [] };
+    this.state = {events: [], rememberMe: []};
   }
 
   getRandomEvents() {
@@ -45,28 +62,28 @@ export default class TestScreen extends Component {
 
   componentDidMount() {
     const events = this.getRandomEvents();
-    this.setState({ events, rememberMe: events });
+    this.setState({events, rememberMe: events});
   }
 
   render() {
-    const { navigation } = this.props;
-    const { events, rememberMe } = this.state;
+    const {navigation} = this.props;
+    const {events, rememberMe} = this.state;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <EventList
           events={rememberMe}
           title="Eventinhos"
-          onEventPressed={event => navigation.push("Event", { event })}
+          onEventPressed={event => navigation.push('Event', {event})}
           horizontal
           eventWidth={120}
           eventHeight={80}
           eventFontSize={16}
         />
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <EventList
             events={events}
             title="Eventinhos"
-            onEventPressed={event => navigation.push("Event", { event })}
+            onEventPressed={event => navigation.push('Event', {event})}
             eventWidth={300}
             eventHeight={200}
             eventFontSize={16}

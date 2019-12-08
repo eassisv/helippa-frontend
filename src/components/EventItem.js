@@ -1,34 +1,50 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import LoadingErrorImage from './LoadingErrorImage';
 import PropTypes from 'prop-types';
-import LoadingImage from './LoadingImage';
 
 export default class EventItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loading: true};
+    this.state = {loading: true, error: false};
   }
 
   setLoadingOff() {
     this.setState({loading: false});
   }
 
+  setErrorTrue() {
+    this.setState({error: true, loading: false});
+  }
+
   render() {
-    const {loading} = this.state;
+    const {loading, error} = this.state;
     const {image, title, width, height, fontSize, onPress} = this.props;
-    const styles = createStyle(width, fontSize);
+    const styles = createStyle(width, height, fontSize);
 
     return (
       <TouchableOpacity style={styles.container} onPress={onPress}>
-        <LoadingImage
-          source={image}
-          width={width}
-          height={height}
-          onLoadEnd={() => this.setLoadingOff()}
-        />
+        <View>
+          {!error ? (
+            <FastImage
+              source={{uri: image}}
+              style={styles.image}
+              onLoadEnd={() => this.setLoadingOff()}
+              onError={() => this.setErrorTrue()}
+            />
+          ) : (
+            <LoadingErrorImage
+              style={styles.image}
+              width={width}
+              height={height}
+            />
+          )}
+          {loading || !image ? <View style={styles.imagePlaceholder} /> : null}
+        </View>
         <View style={styles.titleWrapper}>
           {loading || !image ? (
-            <View style={styles.loadingText} />
+            <View style={styles.textPlaceholder} />
           ) : (
             <Text style={styles.title}>{title}</Text>
           )}
@@ -38,11 +54,25 @@ export default class EventItem extends React.Component {
   }
 }
 
-const createStyle = (width, fontSize) =>
+const createStyle = (width, height, fontSize) =>
   StyleSheet.create({
     container: {
       width,
       margin: 10,
+    },
+    image: {
+      width,
+      height,
+      borderRadius: 2,
+    },
+    imagePlaceholder: {
+      width,
+      height,
+      borderRadius: 2,
+      backgroundColor: '#f1f1f1',
+      position: 'absolute',
+      top: 0,
+      left: 0,
     },
     title: {
       fontSize,
@@ -52,10 +82,10 @@ const createStyle = (width, fontSize) =>
       width: '100%',
       marginTop: 10,
     },
-    loadingText: {
+    textPlaceholder: {
       height: fontSize + 2,
       width: '80%',
-      backgroundColor: '#eee',
+      backgroundColor: '#f1f1f1',
     },
   });
 

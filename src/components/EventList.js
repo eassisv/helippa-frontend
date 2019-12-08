@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import PropTypes from "prop-types";
-import EventItem from "./EventItem";
+import React from 'react';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+import EventItem from './EventItem';
 
 const EventList = ({
   events,
@@ -12,17 +12,18 @@ const EventList = ({
   eventHeight,
   eventFontSize,
   onEventPressed,
-  onEndReached
+  onEndReached,
 }) => {
   const styles = createStyle(fontSize, horizontal);
   const renderItem = item => (
     <EventItem
       image={item.image}
       title={item.title}
-      onPress={() => onEventPressed(item)}
       width={eventWidth}
       height={eventHeight}
       fontSize={eventFontSize}
+      onPress={() => onEventPressed(item)}
+      onEndReached={() => onEndReached()}
     />
   );
 
@@ -32,7 +33,7 @@ const EventList = ({
       <FlatList
         data={events}
         horizontal={horizontal}
-        renderItem={({ item }) => renderItem(item)}
+        renderItem={({item}) => renderItem(item)}
         keyExtractor={item => item.event}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
@@ -46,21 +47,21 @@ const EventList = ({
 
 const createStyle = (fontSize, horizontal) =>
   StyleSheet.create({
-    container: horizontal ? {} : { height: "100%" },
+    container: horizontal ? {} : {height: '100%'},
     title: {
       fontSize,
-      fontWeight: "bold",
-      color: "#444",
-      marginHorizontal: horizontal ? 10 : 0
+      fontWeight: 'bold',
+      color: '#444',
+      marginLeft: 10,
     },
     list: {
-      alignItems: "center"
-    }
+      alignItems: 'center',
+    },
   });
 
 EventList.propTypes = {
   events: PropTypes.arrayOf(
-    PropTypes.shape({ image: PropTypes.string, title: PropTypes.string })
+    PropTypes.shape({image: PropTypes.string, title: PropTypes.string}),
   ),
   title: PropTypes.string,
   fontSize: PropTypes.number,
@@ -69,19 +70,19 @@ EventList.propTypes = {
   eventHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   eventFontSize: PropTypes.number,
   onEventPressed: PropTypes.func,
-  onEndReached: PropTypes.func
+  onEndReached: PropTypes.func,
 };
 
 EventList.defaultProps = {
   events: [],
-  title: "",
+  title: '',
   fontSize: 20,
   horizontal: false,
   eventWidth: 300,
   eventHeight: 200,
   eventFontSize: 16,
   onEventPressed: () => null,
-  onEndReached: () => {}
+  onEndReached: () => {},
 };
 
 export default EventList;
