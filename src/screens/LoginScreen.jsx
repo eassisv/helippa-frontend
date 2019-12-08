@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import * as Facebook from "expo-facebook";
 import axios from "axios";
+import { StackActions, NavigationActions } from "react-navigation";
 
 import styles from "../styles";
 import ModalLogo from "../components/ModalLogo";
@@ -25,6 +26,12 @@ const instance = axios.create({
 });
 
 export default class LoginScreen extends React.Component {
+  static navigationOptions = () => {
+    return {
+      header: null
+    };
+  };
+
   constructor(props) {
     super(props);
     const { navigation } = this.props;

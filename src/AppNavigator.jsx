@@ -19,7 +19,8 @@ const AppNavigator = createStackNavigator(
     TestEventDetails
   },
   {
-    initialRouteName: "TestEventDetails",
+    initialRouteName: "HomeScreen",
+
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: "darkcyan"
