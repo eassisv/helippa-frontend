@@ -1,17 +1,31 @@
-import { createSwitchNavigator, createAppContainer } from "react-navigation";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import TestScreen from "./screens/TestScreen";
 
-const AppNavigator = createSwitchNavigator(
+import EventDetails from "./screens/EventDetails";
+import TestEventDetails from "./screens/TestEventDetails";
+
+const AppNavigator = createStackNavigator(
   {
-    TestScreen,
     LoginScreen,
-    HomeScreen
+    HomeScreen,
+    EventDetails,
+
+    // Test screens
+    TestScreen,
+    TestEventDetails
   },
   {
-    initialRouteName: "TestScreen"
+    initialRouteName: "TestEventDetails",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "darkcyan"
+      },
+      headerTintColor: "white"
+    }
   }
 );
 
