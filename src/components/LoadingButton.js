@@ -33,7 +33,6 @@ const LoadingButton = ({
 };
 
 LoadingButton.propTypes = {
-  title: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   onPress: PropTypes.func,
   color: PropTypes.string,
@@ -45,6 +44,8 @@ LoadingButton.defaultProps = {
   onPress: () => {},
   color: 'white',
   backgroundColor: 'blue',
+  paddingHorizontal: 12,
+  paddingVertical: 8,
 };
 
 const styleCreate = (color, backgroundColor) =>
