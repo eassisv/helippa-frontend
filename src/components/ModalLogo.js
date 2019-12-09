@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
@@ -29,9 +36,9 @@ const ModalLogo = ({visible, onDismiss}) => {
         <Text style={styles.slogan}>
           O conhecimento muda o mundo e queremos oferecer a mudança
         </Text>
-        <View style={{marginTop: '20%'}}>
+        <TouchableOpacity style={styles.button} onPress={() => onDismiss()}>
           <Icon name="angle-double-up" size={36} color="#fff" />
-        </View>
+        </TouchableOpacity>
       </View>
     </Modal>
   );
@@ -59,11 +66,17 @@ const styles = StyleSheet.create({
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,
     paddingHorizontal: '5%',
+    marginBottom: '15%',
   },
   image: {
     width: '50%',
     height: '50%',
     marginBottom: '10%',
+  },
+  button: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

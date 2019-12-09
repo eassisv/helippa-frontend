@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {
   Text,
-  StyleSheet,
   View,
-  ImageBackground,
+  StyleSheet,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -31,7 +31,8 @@ export default class EventDetailImage extends Component {
         <ImageBackground
           source={{uri: image}}
           style={styles.imageContainer}
-          resizeMode="stretch">
+          resizeMode="stretch"
+        >
           <View style={styles.titleWrapper}>
             <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
               {title}
@@ -47,7 +48,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     width,
     height,
-    justifyContent: 'center',
   },
   title: {
     fontSize: 22,
@@ -59,8 +59,11 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   titleWrapper: {
-    backgroundColor: '#444a',
+    width: '100%',
+    backgroundColor: '#4448',
     alignItems: 'center',
+    position: 'absolute',
     marginTop: 10,
+    bottom: '10%',
   },
 });
