@@ -1,19 +1,19 @@
 import {createStackNavigator} from 'react-navigation-stack';
 
-import TestScreen from '../screens/TestScreen';
+import HomeScreen from '../screens/HomeScreen';
 import EventDetailScreen from '../screens/EventDetailScreen';
 
 const MainNavigator = createStackNavigator(
   {
-    Test: {
-      screen: TestScreen,
+    HomeScreen: {
+      screen: HomeScreen,
     },
-    Event: {
+    EventDetailScreen: {
       screen: EventDetailScreen,
     },
   },
   {
-    initialRouteName: 'Event',
+    initialRouteName: 'HomeScreen',
     headerMode: 'none',
   },
 );
