@@ -1,122 +1,107 @@
-/* eslint-disable react/prop-types */
-import React from "react";
-import {
-  View,
-  Image,
-  StatusBar,
-  Alert,
-  AsyncStorage,
-  ActivityIndicator
-} from "react-native";
-import * as Facebook from "expo-facebook";
-import axios from "axios";
+import React from 'react';
+import {View, StyleSheet, StatusBar, Alert} from 'react-native';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
+import AsyncStorage from '@react-native-community/async-storage';
+import FastImage from 'react-native-fast-image';
+import FacebookButton from '../components/FacebookButton';
+import ModalLogo from '../components/ModalLogo';
+import axios from 'axios';
 
-import styles from "../styles";
-import ModalLogo from "../components/ModalLogo";
-import FacebookButton from "../components/FacebookButton";
-
-const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
-
-const clientId = "462747724359304";
-
-const instance = axios.create({
-  baseURL: "http://5b7fd052.ngrok.io/"
-  // baseURL: "http://backend-helippa.herokuapp.com/",
-});
+const logo = require('../../assets/logo-e-escrita-transparente-vertical.png');
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
-    const { navigation } = this.props;
-    const showModal = navigation.getParam("showModal", true);
-    StatusBar.setBackgroundColor(showModal ? "orange" : "darkcyan");
-    this.state = { showModal, loading: false };
+    this.state = {showModal: true, loading: false};
+    StatusBar.setBackgroundColor('orange', false);
   }
 
-  dismissModal = () => {
-    StatusBar.setBackgroundColor("darkcyan");
-    this.setState({ showModal: false });
-  };
+  navigateToHome() {
+    this.props.navigation.navigate('MainNavigator');
+  }
 
-  goToHomeScreen = (fbtoken, apitoken) => {
-    // eslint-disable-next-line react/prop-types
-    const { navigation } = this.props;
-
-    // eslint-disable-next-line react/prop-types
-    navigation.navigate("HomeScreen", { fbtoken, apitoken });
-  };
-
-  componentDidMount = async () => {
+  async componentDidMount() {
     try {
-      const fbtoken = await AsyncStorage.getItem("fbtoken");
-      const apitoken = await AsyncStorage.getItem("apitoken");
-      // console.log(fbtoken, apitoken);
-      // eslint-disable-next-line no-empty
-
-      console.log(fbtoken, " ", apitoken);
-      if (!!fbtoken && !!apitoken) {
-        this.goToHomeScreen(fbtoken, apitoken);
+      const fbToken = await AsyncStorage.getItem('fbToken');
+      const apiToken = await AsyncStorage.getItem('apiToken');
+      console.log('fbToken:', fbToken);
+      console.log('apiToken:', apiToken);
+      if (fbToken && apiToken) {
+        this.navigateToHome();
       }
     } catch (error) {}
-  };
+  }
 
-  facebookLogin = async () => {
-    this.setState({ loading: true });
+  async loginWithFacebook() {
+    this.setState({loading: true});
+    let res;
     try {
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync(
-        clientId,
-        {
-          permissions: ["public_profile", "email"]
-        }
-      );
-      if (type === "success") {
+      res = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+      if (!res.isCancelled) {
+        const fbToken = await AccessToken.getCurrentAccessToken();
         try {
-          const res = await instance.post(
-            "api/authenticate/",
-            { fbtoken: token },
-            { headers: { fbtoken: token } }
+          res = await axios.post(
+            'http://b44087f3.ngrok.io/api/authenticate',
+            {},
+            {headers: {fbToken: fbToken.accessToken}},
           );
-
-          const apitoken = res.data.token;
-
-          console.log("blabla", token, " ", apitoken);
-
-          await AsyncStorage.setItem("fbtoken", token);
-          await AsyncStorage.setItem("apitoken", apitoken);
-          this.goToHomeScreen(token, apitoken);
+          const apiToken = res.data.token;
+          try {
+            await AsyncStorage.multiSet([
+              ['fbToken', fbToken.accessToken],
+              ['apiToken', apiToken],
+            ]);
+            this.navigateToHome();
+          } catch (error) {
+            // TODO: ver uma mensagem para mostrar ao usuário
+          }
         } catch (error) {
-          Alert.alert(
-            "Erro ao autenticar com a API, por favor tente novamente mais tarde"
-          );
+          // TODO
         }
       }
-    } catch (e) {
-      this.setState({ loading: false });
-      Alert.alert(
-        "Ocorreu um erro ao tentar logar, por favor tente novamente mais tarde"
-      );
+    } catch (error) {
+      Alert.alert('Erro ao logar', error);
     }
-  };
+    this.setState({loading: false});
+  }
+
+  onDismissModal() {
+    this.setState({showModal: false});
+    StatusBar.setBackgroundColor('darkcyan', false);
+  }
 
   render() {
-    const { showModal, loading } = this.state;
+    const {showModal, loading} = this.state;
     return (
-      <View style={[styles.container, { backgroundColor: "darkcyan" }]}>
-        <ModalLogo visible={showModal} onDismiss={() => this.dismissModal()} />
-        <Image
-          source={logo}
-          resizeMethod="scale"
-          resizeMode="contain"
-          style={{ width: "50%", height: "50%" }}
+      <View style={styles.container}>
+        <ModalLogo
+          visible={showModal}
+          onDismiss={() => this.onDismissModal()}
         />
-        <View style={{ alignItems: "center", marginTop: "10%" }}>
-          {loading ? (
-            <ActivityIndicator size="large" color="cyan" />
-          ) : (
-            <FacebookButton onPress={() => this.facebookLogin()} />
-          )}
-        </View>
+        <FastImage source={logo} style={styles.logo} resizeMode="contain" />
+        <FacebookButton
+          loading={loading}
+          onPress={() => this.loginWithFacebook()}
+        />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'darkcyan',
+    paddingBottom: '10%',
+  },
+  logo: {
+    width: '50%',
+    height: '50%',
+    marginBottom: 40,
+  },
+});

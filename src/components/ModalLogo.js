@@ -1,15 +1,13 @@
-import React from "react";
-import { View, Image, Dimensions } from "react-native";
-import Modal from "react-native-modal";
-import PropTypes from "prop-types";
-import styles from "../styles";
-import TitleText from "./TitleText";
-import JumpingIcon from "./JumpingIcon";
+import React from 'react';
+import {View, Text, Image, StyleSheet, Dimensions} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Modal from 'react-native-modal';
+import PropTypes from 'prop-types';
 
-const { width, height } = Dimensions.get("window");
-const logo = require("../../assets/logo-e-escrita-transparente-vertical.png");
+const {width, height} = Dimensions.get('window');
+const logo = require('../../assets/logo-e-escrita-transparente-vertical.png');
 
-const ModalLogo = ({ visible, onDismiss }) => {
+const ModalLogo = ({visible, onDismiss}) => {
   return (
     <Modal
       isVisible={visible}
@@ -19,43 +17,64 @@ const ModalLogo = ({ visible, onDismiss }) => {
       animationInTiming={0}
       animationOut="slideOutUp"
       onSwipeComplete={() => onDismiss()}
-      style={styles.container}
+      style={styles.modalContainer}
     >
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: "orange",
-            width,
-            height
-          }
-        ]}
-      >
+      <View style={styles.container}>
         <Image
           source={logo}
-          style={{ width: "50%", height: "50%", marginBottom: "10%" }}
+          style={styles.image}
           resizeMode="contain"
           resizeMethod="scale"
         />
-        <TitleText color="#ffffffee" align="center">
+        <Text style={styles.slogan}>
           O conhecimento muda o mundo e queremos oferecer a mudança
-        </TitleText>
-        <View style={{ marginTop: "20%" }}>
-          <JumpingIcon name="chevron-double-up" color="#ffffff" />
+        </Text>
+        <View style={{marginTop: '20%'}}>
+          <Icon name="angle-double-up" size={36} color="#fff" />
         </View>
       </View>
     </Modal>
   );
 };
 
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    width,
+    height,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'orange',
+  },
+  slogan: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textShadowColor: '#4444',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+    paddingHorizontal: '5%',
+  },
+  image: {
+    width: '50%',
+    height: '50%',
+    marginBottom: '10%',
+  },
+});
+
 ModalLogo.propTypes = {
   visible: PropTypes.bool,
-  onDismiss: PropTypes.func
+  onDismiss: PropTypes.func,
 };
 
 ModalLogo.defaultProps = {
   visible: false,
-  onDismiss: () => {}
+  onDismiss: () => {},
 };
 
 export default ModalLogo;
