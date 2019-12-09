@@ -22,6 +22,7 @@ import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
 import EventItem from '../components/EventItem';
 import EventList from '../components/EventList';
+import EventSearchForm from '../components/EventSearchForm';
 
 const useds = {};
 const random = () => Math.round(Math.random() * 1000);
@@ -63,10 +64,11 @@ export default class TestScreen extends Component {
     const {events, rememberMe} = this.state;
     return (
       <View style={{flex: 1}}>
+        <EventSearchForm />
         <EventList
           events={rememberMe}
           title="Eventinhos"
-          onEventPressed={event => navigation.push('Event', {event})}
+          onEventPressed={event => navigation.push('EventDetailSceen', {event})}
           horizontal
           eventWidth={120}
           eventHeight={80}
@@ -76,7 +78,9 @@ export default class TestScreen extends Component {
           <EventList
             events={events}
             title="Eventinhos"
-            onEventPressed={event => navigation.push('Event', {event})}
+            onEventPressed={event =>
+              navigation.push('EventDetailSceen', {event})
+            }
             eventWidth={300}
             eventHeight={200}
             eventFontSize={16}
