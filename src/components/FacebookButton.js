@@ -1,45 +1,49 @@
-import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { FontAwesome } from "@expo/vector-icons";
-import PropTypes from "prop-types";
+import React from 'react';
+import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const facebookColor = "#4267B2";
-
-const FacebookButton = ({ onPress }) => {
+const FacebookButton = ({onPress, loading}) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <FontAwesome name="facebook-official" size={36} color={facebookColor} />
-      <Text style={styles.text}>Entrar com o Facebook</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      {loading ? (
+        <ActivityIndicator color="#3b5998" size="small" />
+      ) : (
+        <Icon.Button
+          size={30}
+          color="#3b5998"
+          name="facebook-official"
+          backgroundColor="#fff"
+          borderRadius={2}
+          style={styles.button}
+          onPress={() => onPress()}
+        >
+          <Text style={styles.title}>Entrar com o Facebook</Text>
+        </Icon.Button>
+      )}
+    </View>
   );
 };
 
-FacebookButton.propTypes = {
-  onPress: PropTypes.func
-};
-
-FacebookButton.defaultProps = {
-  onPress: () => {}
-};
-
 const styles = StyleSheet.create({
-  button: {
+  container: {
+    height: 40,
     width: 240,
-    padding: 5,
-    paddingLeft: 10,
-    backgroundColor: "#fff",
-    borderRadius: 3,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    elevation: 1
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    elevation: 3,
+    borderRadius: 2,
   },
-  text: {
+  button: {
+    height: 40,
+    width: 240,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
     fontSize: 16,
-    color: facebookColor,
-    paddingLeft: 7
-  }
+    color: '#3b5998',
+  },
 });
 
 export default FacebookButton;
