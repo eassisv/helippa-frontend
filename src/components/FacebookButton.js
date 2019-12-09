@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import PropTypes from 'prop-types';
 
 const FacebookButton = ({onPress, loading}) => {
   return (
@@ -45,5 +46,15 @@ const styles = StyleSheet.create({
     color: '#3b5998',
   },
 });
+
+FacebookButton.propTypes = {
+  onPress: PropTypes.func,
+  loading: PropTypes.bool,
+};
+
+FacebookButton.defaultTypes = {
+  onPress: () => {},
+  loading: false,
+};
 
 export default FacebookButton;
