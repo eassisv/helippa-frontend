@@ -1,21 +1,26 @@
-/* eslint-disable react/prop-types */
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import EventItem from "../components/EventItem";
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import EventItem from '../components/EventItem';
+import EventDetailImage from '../components/EventDetailImage';
 
-const EventDetailScreen = ({ navigation }) => {
-  const { event } = navigation.state.params;
+const EventDetailScreen = ({navigation}) => {
+  const event = {
+    title: 'Evadfasdf',
+    image: 'https://picsum.photos/id/300/300/200',
+  };
   return (
-    <View>
-      <EventItem
-        image={event.image}
-        title={event.title}
-        width={300}
-        height={200}
-      />
+    <View style={{flex: 1}}>
+      <EventDetailImage event={event} />
       <TouchableOpacity
-        style={{ alignItems: "center" }}
-        onPress={() => navigation.goBack()}
+        onPress={async () => {
+          try {
+            await AsyncStorage.multiRemove(['apiToken', 'fbToken']);
+          } catch (e) {
+            console.log(e);
+          }
+          navigation.navigate('LoginScreen');
+        }}
       >
         <Text>Voltar</Text>
       </TouchableOpacity>

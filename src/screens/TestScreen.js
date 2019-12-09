@@ -28,8 +28,9 @@ const random = () => Math.round(Math.random() * 1000);
 
 const getEvent = () => {
   let event;
-  do {event = random();}
-  while (useds[event] !== undefined);
+  do {
+    event = random();
+  } while (useds[event] !== undefined);
   useds[event] = event;
   return {
     event: `${event}`,
@@ -37,14 +38,6 @@ const getEvent = () => {
     title: `Eventinho ${event}`,
   };
 };
-
-// <EventItem
-//   image="http://lorempixel.com/300/200/"
-//   width={300}
-//   height={200}
-//   fontSize={16}
-//   title="Labelzinha"
-// />
 
 export default class TestScreen extends Component {
   constructor(props) {
