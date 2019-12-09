@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
-import HomeHeader from '../components/HomeHeader';
-import HomeListHeader from '../components/HomeLIstHeader';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import EventSearchForm from '../components/EventSearchForm';
 import EventList from '../components/EventList';
 
+const {width} = Dimensions.get('window');
 const useds = {};
 const random = () => Math.round(Math.random() * 1000);
 
@@ -30,23 +30,20 @@ const getRandomEvents = () => {
 
 const events = getRandomEvents();
 
-export default class HomeScreen extends Component {
+export class HomeLIstHeader extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <HomeHeader />
-        <View style={styles.container}>
-          <EventList
-            events={events}
-            onEventPressed={event =>
-              this.props.navigation.push('EventDetailScreen', {event})
-            }
-            ListHeaderComponent={<HomeListHeader />}
-            eventWidth={300}
-            eventHeight={200}
-            eventFontSize={16}
-          />
-        </View>
+        <EventSearchForm />
+        <EventList
+          events={events}
+          title="Não se esqueça"
+          fontSize={18}
+          eventWidth={180}
+          eventHeight={120}
+          horizontal
+        />
+        <Text style={styles.title}>Destaques</Text>
       </View>
     );
   }
@@ -54,6 +51,14 @@ export default class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width,
+  },
+  title: {
+    marginLeft: 10,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#444',
   },
 });
+
+export default HomeLIstHeader;

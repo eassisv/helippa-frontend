@@ -23,14 +23,12 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     padding: 20,
-    shadowColor: 'black',
-    shadowOpacity: 1.0,
-    shadowOffset: {width: 0, height: 5},
     borderRadius: 2,
-    elevation: 5,
+    elevation: 3,
   },
   container: {
-    padding: 20,
+    width: '100%',
+    padding: 10,
   },
   title: {
     fontSize: 16,

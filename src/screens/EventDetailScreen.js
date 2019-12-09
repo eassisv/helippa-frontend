@@ -19,7 +19,7 @@ const EventDetailScreen = ({navigation}) => {
           } catch (e) {
             console.log(e);
           }
-          navigation.navigate('LoginScreen');
+          navigation.goBack();
         }}
       >
         <Text>Voltar</Text>

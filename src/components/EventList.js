@@ -13,6 +13,7 @@ const EventList = ({
   eventFontSize,
   onEventPressed,
   onEndReached,
+  ListHeaderComponent,
 }) => {
   const styles = createStyle(fontSize, horizontal);
   const renderItem = item => (
@@ -33,6 +34,7 @@ const EventList = ({
       <FlatList
         data={events}
         horizontal={horizontal}
+        ListHeaderComponent={ListHeaderComponent}
         renderItem={({item}) => renderItem(item)}
         keyExtractor={item => item.event}
         contentContainerStyle={styles.list}
@@ -71,6 +73,7 @@ EventList.propTypes = {
   eventFontSize: PropTypes.number,
   onEventPressed: PropTypes.func,
   onEndReached: PropTypes.func,
+  ListHeaderComponent: PropTypes.elementType,
 };
 
 EventList.defaultProps = {
@@ -83,6 +86,7 @@ EventList.defaultProps = {
   eventFontSize: 16,
   onEventPressed: () => null,
   onEndReached: () => {},
+  ListHeaderComponent: null,
 };
 
 export default EventList;
