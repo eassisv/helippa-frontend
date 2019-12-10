@@ -5,12 +5,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const logo = require('../../assets/escrita-darkcyan.png');
 
 const HomeHeader = ({onPressLogo, onPressMenu}) => {
+  console.log(onPressMenu);
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.logoWrapper} onPress={() => onPressLogo}>
+      <TouchableOpacity style={styles.logoWrapper} onPress={onPressLogo}>
         <Image source={logo} style={styles.logo} resizeMode="cover" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.iconWrapper} onPress={() => onPressMenu}>
+      <TouchableOpacity style={styles.iconWrapper} onPress={onPressMenu}>
         <Icon name="navicon" size={34} color="#444" />
       </TouchableOpacity>
     </View>
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    elevation: 2,
   },
   logo: {
     height: 40,
