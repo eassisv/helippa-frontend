@@ -36,7 +36,7 @@ class ImagePickerBox extends React.Component {
   }
 
   render() {
-    const {source, style} = this.props;
+    const {style} = this.props;
     const {image} = this.state;
     const imageSource = image ? {uri: image.path} : null;
     // typeof this.state.image.path === 'string' ? {uri: source} : source;
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     paddingHorizontal: 12,
     borderRadius: 2,
-    opacity: 1,
+    elevation: 3,
   },
   badgeText: {
     color: 'white',

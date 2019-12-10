@@ -5,7 +5,9 @@ import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingButton from '../components/LoadingButton';
 import ImagePickerBox from '../components/ImagePickerBox';
+import HomeHeader from '../components/HomeHeader';
 import axios from 'axios';
+import FormData from 'form-data';
 
 class CreateEventScreen extends React.Component {
   static navigationOptions = {
@@ -112,13 +114,25 @@ class CreateEventScreen extends React.Component {
         description: this.state.description,
         date: this.state.date.toString(),
       });
-      console.log('res was');
-      console.log(res);
 
-      const bodyFormData = new FormData();
+      console.log('image', this.state.image);
+      const data = new FormData();
+      data.append('image', {
+        uri: this.state.image.path,
+        name: 'image',
+        type: this.state.image.mime,
+      });
+
+      console.log('res', res.data);
+
+      const saveImageRes = await axios.post(
+        `http://ddea6d0e.ngrok.io/api/event/${res.data.id}/image`,
+        data,
+      );
+      console.log(saveImageRes);
       // bodyFormData.set('image', imageFile);
     } catch (e) {
-      console.log('error when posting even');
+      console.log('error when posting event');
       console.log(e);
     } finally {
       this.setState({loading: false});
@@ -126,64 +140,65 @@ class CreateEventScreen extends React.Component {
   }
 
   render() {
+    const {navigation} = this.props;
     const {width} = Dimensions.get('window');
     const widthMinusPadding = width - 30;
     const styles = createStyles({widthMinusPadding});
     return (
-      <View style={styles.container}>
-        <LoadingButton
-          style={styles.button}
-          onPress={() => this.props.navigation.goBack()}
-        >
-          voltar
-        </LoadingButton>
-        <Text style={styles.title}>Crie um Evento</Text>
-        <ImagePickerBox
-          style={styles.picker}
-          onChange={img => this.onChangeImage(img)}
+      <View>
+        <HomeHeader
+          onPressLogo={() => navigation.navigate('HomeNavigator')}
+          onPressMenu={() => navigation.openDrawer()}
         />
-        <CustomTextInput
-          name="name"
-          placeholder="Nome do evento"
-          style={styles.input}
-          onChangeText={name => this.onChangeName(name)}
-          value={this.state.name}
-        />
-        <CustomTextInput
-          name=""
-          placeholder="Descrição do Evento"
-          style={styles.input}
-          onChangeText={desc => this.onChangeDesc(desc)}
-          value={this.state.description}
-        />
-        <LoadingButton
-          style={styles.button}
-          onPress={() => this.showDayPicker()}
-        >
-          Alterar data
-        </LoadingButton>
-        {this.state.showDatePicker && (
-          <DateTimePicker
-            value={this.state.date}
-            onChange={(event, date) =>
-              this.state.mode === 'date'
-                ? this.setDay(event, date)
-                : this.setTime(event, date)
-            }
-            is24Hour={true}
-            mode={this.state.mode}
+        <View style={styles.container}>
+          <Text style={styles.title}>Crie um Evento</Text>
+          <ImagePickerBox
+            style={styles.picker}
+            onChange={img => this.onChangeImage(img)}
           />
-        )}
-        <Text style={styles.date}>
-          Evento ocorre em {this.dateString()} às {this.timeString()}
-        </Text>
-        <LoadingButton
-          style={styles.button}
-          onPress={() => this.postEvent()}
-          loading={this.state.loading}
-        >
-          CRIAR EVENTO
-        </LoadingButton>
+          <CustomTextInput
+            name="name"
+            placeholder="Nome do evento"
+            style={styles.input}
+            onChangeText={name => this.onChangeName(name)}
+            value={this.state.name}
+          />
+          <CustomTextInput
+            name=""
+            placeholder="Descrição do Evento"
+            style={styles.input}
+            onChangeText={desc => this.onChangeDesc(desc)}
+            value={this.state.description}
+          />
+          <LoadingButton
+            style={styles.button}
+            onPress={() => this.showDayPicker()}
+          >
+            Alterar data
+          </LoadingButton>
+          {this.state.showDatePicker && (
+            <DateTimePicker
+              value={this.state.date}
+              onChange={(event, date) =>
+                this.state.mode === 'date'
+                  ? this.setDay(event, date)
+                  : this.setTime(event, date)
+              }
+              is24Hour={true}
+              mode={this.state.mode}
+            />
+          )}
+          <Text style={styles.date}>
+            Evento ocorre em {this.dateString()} às {this.timeString()}
+          </Text>
+          <LoadingButton
+            style={styles.button}
+            onPress={() => this.postEvent()}
+            loading={this.state.loading}
+          >
+            Salvar
+          </LoadingButton>
+        </View>
       </View>
     );
   }

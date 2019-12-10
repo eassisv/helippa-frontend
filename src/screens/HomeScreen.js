@@ -75,7 +75,7 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#eee',
   },
   indicatorWrapper: {
     flex: 1,
