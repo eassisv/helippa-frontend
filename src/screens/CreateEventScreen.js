@@ -5,6 +5,7 @@ import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingButton from '../components/LoadingButton';
 import ImagePickerBox from '../components/ImagePickerBox';
+import axios from 'axios';
 
 class CreateEventScreen extends React.Component {
   static navigationOptions = {
@@ -23,6 +24,7 @@ class CreateEventScreen extends React.Component {
       description: '',
       mode: 'date',
       image: '',
+      loading: false,
     };
   }
 
@@ -102,12 +104,39 @@ class CreateEventScreen extends React.Component {
     this.setState({image});
   }
 
+  async postEvent() {
+    try {
+      this.setState({loading: true});
+      const res = await axios.post('http://ddea6d0e.ngrok.io/api/event', {
+        name: this.state.name,
+        description: this.state.description,
+        date: this.state.date.toString(),
+      });
+      console.log('res was');
+      console.log(res);
+
+      const bodyFormData = new FormData();
+      // bodyFormData.set('image', imageFile);
+    } catch (e) {
+      console.log('error when posting even');
+      console.log(e);
+    } finally {
+      this.setState({loading: false});
+    }
+  }
+
   render() {
     const {width} = Dimensions.get('window');
     const widthMinusPadding = width - 30;
     const styles = createStyles({widthMinusPadding});
     return (
       <View style={styles.container}>
+        <LoadingButton
+          style={styles.button}
+          onPress={() => this.props.navigation.goBack()}
+        >
+          voltar
+        </LoadingButton>
         <Text style={styles.title}>Crie um Evento</Text>
         <ImagePickerBox
           style={styles.picker}
@@ -148,7 +177,13 @@ class CreateEventScreen extends React.Component {
         <Text style={styles.date}>
           Evento ocorre em {this.dateString()} às {this.timeString()}
         </Text>
-        <LoadingButton style={styles.button}>CRIAR EVENTO</LoadingButton>
+        <LoadingButton
+          style={styles.button}
+          onPress={() => this.postEvent()}
+          loading={this.state.loading}
+        >
+          CRIAR EVENTO
+        </LoadingButton>
       </View>
     );
   }
