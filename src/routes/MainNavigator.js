@@ -1,20 +1,21 @@
-import {createStackNavigator} from 'react-navigation-stack';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 
-import HomeScreen from '../screens/HomeScreen';
-import EventDetailScreen from '../screens/EventDetailScreen';
+import HomeNavigator from './HomeNavigator';
+import LogoutSecreen from '../screens/LogoutScreen';
 
-const MainNavigator = createStackNavigator(
+const MainNavigator = createDrawerNavigator(
   {
-    HomeScreen: {
-      screen: HomeScreen,
+    HomeNavigator: {
+      screen: HomeNavigator,
     },
-    EventDetailScreen: {
-      screen: EventDetailScreen,
+    LogoutSecreen: {
+      screen: LogoutSecreen,
     },
   },
   {
-    initialRouteName: 'HomeScreen',
-    headerMode: 'none',
+    initialRouteName: 'HomeNavigator',
+    drawerPosition: 'right',
+    drawerType: 'front',
   },
 );
 

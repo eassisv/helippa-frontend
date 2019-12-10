@@ -12,8 +12,9 @@ const logo = require('../../assets/logo-e-escrita-transparente-vertical.png');
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {showModal: true, loading: false};
-    StatusBar.setBackgroundColor('orange', false);
+    const showModal = this.props.navigation.getParam('showModal', false);
+    this.state = {showModal, loading: false};
+    StatusBar.setBackgroundColor(showModal ? 'orange' : 'darkcyan', false);
   }
 
   navigateToHome() {
@@ -72,7 +73,7 @@ export default class LoginScreen extends React.Component {
     this.setState({showModal: false});
     StatusBar.setBackgroundColor('darkcyan', false);
   }
-
+  //TODO tratar o erro do login sem internet
   render() {
     const {showModal, loading} = this.state;
     return (

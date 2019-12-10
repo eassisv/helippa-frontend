@@ -73,7 +73,7 @@ EventList.propTypes = {
   eventFontSize: PropTypes.number,
   onEventPressed: PropTypes.func,
   onEndReached: PropTypes.func,
-  ListHeaderComponent: PropTypes.elementType,
+  ListHeaderComponent: PropTypes.element,
 };
 
 EventList.defaultProps = {

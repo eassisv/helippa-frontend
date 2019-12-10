@@ -19,7 +19,7 @@ const createStyle = (width, height) =>
       height,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#f1f1f1',
+      backgroundColor: '#ebebeb',
     },
   });
 

@@ -35,14 +35,16 @@ export class HomeLIstHeader extends Component {
     return (
       <View style={styles.container}>
         <EventSearchForm />
-        <EventList
-          events={events}
-          title="Não se esqueça"
-          fontSize={18}
-          eventWidth={180}
-          eventHeight={120}
-          horizontal
-        />
+        <View style={styles.eventsWrapper}>
+          <EventList
+            events={events}
+            title="Não se esqueça"
+            fontSize={18}
+            eventWidth={180}
+            eventHeight={120}
+            horizontal
+          />
+        </View>
         <Text style={styles.title}>Destaques</Text>
       </View>
     );
@@ -52,6 +54,9 @@ export class HomeLIstHeader extends Component {
 const styles = StyleSheet.create({
   container: {
     width,
+  },
+  eventsWrapper: {
+    marginVertical: 20,
   },
   title: {
     marginLeft: 10,
