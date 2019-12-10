@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  KeyboardAvoidingView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -130,7 +137,11 @@ class CreateEventScreen extends React.Component {
     const widthMinusPadding = width - 30;
     const styles = createStyles({widthMinusPadding});
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        contentContainerStyle={styles.container}
+        enabled
+      >
         <LoadingButton
           style={styles.button}
           onPress={() => this.props.navigation.goBack()}
@@ -184,7 +195,7 @@ class CreateEventScreen extends React.Component {
         >
           CRIAR EVENTO
         </LoadingButton>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
