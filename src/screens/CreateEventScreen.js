@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingButton from '../components/LoadingButton';
@@ -14,6 +14,7 @@ class CreateEventScreen extends React.Component {
       name: '',
       description: '',
       mode: 'date',
+      image: '',
     };
   }
 
@@ -84,17 +85,25 @@ class CreateEventScreen extends React.Component {
   }
 
   async showImagePicker() {
-    const image = await ImagePicker.openPicker({
-      width: 300,
-      height: 200,
-      cropping: true,
-    });
+    try {
+      const image = await ImagePicker.openPicker({
+        width: 300,
+        height: 200,
+        cropping: true,
+      });
 
-    console.log('image was');
-    console.log(image);
+      this.setState({
+        image,
+      });
+      console.log('image was');
+      console.log(image);
+    } catch (e) {}
   }
 
   render() {
+    const {image} = this.state;
+    const {width} = Dimensions.get('window');
+    const widthMinusPadding = width - 30;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Crie um Evento</Text>
@@ -139,25 +148,36 @@ class CreateEventScreen extends React.Component {
         >
           Escolher imagem
         </LoadingButton>
+        <Image
+          source={{uri: image.path}}
+          style={{
+            width: image.width,
+            height: image.height,
+          }}
+        />
+        <LoadingButton style={styles.button}>teste</LoadingButton>
       </View>
     );
   }
 }
+
+const defalutSpacing = 15;
+
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: defalutSpacing,
   },
   title: {
-    fontSize: 20,
+    fontSize: defalutSpacing,
     fontWeight: '700',
     color: '#444',
   },
   input: {
-    marginTop: 20,
+    marginTop: defalutSpacing,
     elevation: 3,
   },
   button: {
-    marginTop: 20,
+    marginTop: defalutSpacing,
     backgroundColor: 'darkcyan',
   },
 });
