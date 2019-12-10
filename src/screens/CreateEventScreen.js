@@ -137,6 +137,7 @@ class CreateEventScreen extends React.Component {
         data,
       );
       console.log(saveImageRes);
+      this.props.navigation.navigate('HomeNavigator', {reload: true});
       // bodyFormData.set('image', imageFile);
     } catch (e) {
       console.log('error when posting event');
@@ -154,7 +155,7 @@ class CreateEventScreen extends React.Component {
     return (
       <View>
         <HomeHeader
-          onPressLogo={() => navigation.navigate('homeNavigator')}
+          onPressLogo={() => navigation.navigate('HomeNavigator')}
           onPressMenu={() => navigation.openDrawer()}
         />
         <KeyboardAvoidingView

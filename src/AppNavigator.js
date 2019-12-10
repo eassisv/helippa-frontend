@@ -12,7 +12,7 @@ const AppNavigator = createAnimatedSwitchNavigator(
     MainNavigator,
   },
   {
-    initialRouteName: 'MainNavigator',
+    initialRouteName: 'LoginScreen',
     transition: (
       <Transition.Together>
         <Transition.Out

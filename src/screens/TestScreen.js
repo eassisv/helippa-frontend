@@ -19,7 +19,7 @@
 // // }
 
 import React, {Component} from 'react';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View, RefreshControl} from 'react-native';
 import EventItem from '../components/EventItem';
 import EventList from '../components/EventList';
 import EventSearchForm from '../components/EventSearchForm';
@@ -63,7 +63,8 @@ export default class TestScreen extends Component {
     const {navigation} = this.props;
     const {events, rememberMe} = this.state;
     return (
-      <View style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
+        <RefreshControl refreshing={true} />
         <EventSearchForm />
         <EventList
           events={rememberMe}
@@ -84,7 +85,7 @@ export default class TestScreen extends Component {
             eventFontSize={16}
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

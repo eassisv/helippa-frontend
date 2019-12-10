@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Dimensions, ActivityIndicator} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Dimensions,
+  ActivityIndicator,
+  StatusBar,
+} from 'react-native';
 import axios from 'axios';
 import HomeHeader from '../components/HomeHeader';
 import HomeListHeader from '../components/HomeListHeader';
@@ -11,19 +18,23 @@ const height = Math.round(width * (2 / 3));
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {loading: true, events: []};
+    this.state = {loading: false, events: []};
     this.flatList = React.createRef();
+    StatusBar.setBackgroundColor('darkcyan');
+    console.log('asdfuhsadufhsdufhsdauhsfdhu', this.props.navigation.state);
   }
 
   async getEvents() {
+    this.setState({loading: true});
     try {
       const res = await axios.get('http://ddea6d0e.ngrok.io/api/event');
       console.log(res.data);
-      this.setState({events: res.data, loading: false});
+      this.setState({events: res.data.reverse(), loading: false});
       console.log('events:', this.state.events);
     } catch (error) {
       console.log('error:', error);
     }
+    this.setState({loading: false});
   }
 
   async componentDidMount() {
@@ -58,7 +69,12 @@ export default class HomeScreen extends Component {
           <View style={styles.container}>
             <EventList
               events={events}
-              ListHeaderComponent={<HomeListHeader navigation={navigation} />}
+              ListHeaderComponent={
+                <HomeListHeader
+                  navigation={navigation}
+                  onReload={() => this.getEvents()}
+                />
+              }
               eventWidth={width}
               eventHeight={height}
               eventFontSize={16}

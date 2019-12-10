@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import ImagePicker from 'react-native-image-crop-picker';
 
@@ -43,6 +44,11 @@ class ImagePickerBox extends React.Component {
     return (
       <TouchableOpacity onPress={() => this.chooseImage()}>
         <ImageBackground source={imageSource} style={[style, styles.default]}>
+          {!imageSource && (
+            <View style={styles.iconContainer}>
+              <Icon name="photo" size={style.height * 0.5} color="#888" />
+            </View>
+          )}
           <View style={styles.badge}>
             <Text style={styles.badgeText}>Escolha uma imagem</Text>
           </View>
@@ -67,8 +73,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   default: {
-    backgroundColor: '#ff0000',
+    backgroundColor: '#f7f7f7',
     borderRadius: 2,
+  },
+  iconContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
