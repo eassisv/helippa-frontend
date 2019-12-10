@@ -43,7 +43,7 @@ LoadingButton.defaultProps = {
   loading: false,
   onPress: () => {},
   color: 'white',
-  backgroundColor: 'blue',
+  backgroundColor: '#eee',
   paddingHorizontal: 12,
   paddingVertical: 8,
 };
@@ -54,6 +54,8 @@ const styleCreate = (color, backgroundColor) =>
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
     },
     text: {
       color,

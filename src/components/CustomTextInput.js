@@ -29,11 +29,13 @@ const CustomTextInput = props => {
       style={styles.input}
       placeholder={props.placeholder}
       placeholderTextColor={props.textColor}
+      onChangeText={props.onChangeText}
+      value={props.value}
     />
   );
 };
 
-const createStyle = ({name, textColor, backgroundColor, padding}) =>
+const createStyle = ({name, textColor, backgroundColor, padding, style}) =>
   StyleSheet.create({
     input: {
       backgroundColor: backgroundColor,
@@ -41,6 +43,7 @@ const createStyle = ({name, textColor, backgroundColor, padding}) =>
       paddingVertical: 8,
       color: textColor,
       borderRadius: 2,
+      ...style,
     },
   });
 
@@ -50,6 +53,7 @@ CustomTextInput.propTypes = {
   backgroundColor: PropTypes.string,
   padding: PropTypes.number,
   placeholder: PropTypes.string,
+  style: PropTypes.object,
 };
 
 CustomTextInput.defaultProps = {
