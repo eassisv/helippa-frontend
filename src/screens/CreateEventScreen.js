@@ -17,7 +17,7 @@ class CreateEventScreen extends React.Component {
   }
 
   dateString() {
-    return this.state.date.toGMTString();
+    return `${this.state.date.toLocaleDateString()} ${this.state.date.toLocaleTimeString()}`;
     // const day = this.state.date.getDate();
     // const month = this.state.date.getMonth() + 1;
     // const year = this.state.date.getFullYear();
@@ -46,6 +46,7 @@ class CreateEventScreen extends React.Component {
       newDate.setHours(date.getHours(), date.getMinutes());
       return {
         date: newDate,
+        showDatePicker: false,
       };
     });
   }
@@ -109,7 +110,11 @@ class CreateEventScreen extends React.Component {
         {this.state.showDatePicker && (
           <DateTimePicker
             value={this.state.date}
-            onChange={this.setDay}
+            onChange={(event, date) =>
+              this.state.mode === 'date'
+                ? this.setDay(event, date)
+                : this.setTime(event, date)
+            }
             is24Hour={true}
             mode={this.state.mode}
           />
