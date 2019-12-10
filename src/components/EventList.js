@@ -3,49 +3,55 @@ import {View, Text, FlatList, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import EventItem from './EventItem';
 
-const EventList = ({
-  events,
-  title,
-  fontSize,
-  horizontal,
-  eventWidth,
-  eventHeight,
-  eventFontSize,
-  onEventPressed,
-  onEndReached,
-  ListHeaderComponent,
-}) => {
-  const styles = createStyle(fontSize, horizontal);
-  const renderItem = item => (
-    <EventItem
-      image={item.image}
-      title={item.title}
-      width={eventWidth}
-      height={eventHeight}
-      fontSize={eventFontSize}
-      onPress={() => onEventPressed(item)}
-      onEndReached={() => onEndReached()}
-    />
-  );
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <FlatList
-        data={events}
-        horizontal={horizontal}
-        ListHeaderComponent={ListHeaderComponent}
-        renderItem={({item}) => renderItem(item)}
-        keyExtractor={item => item.event}
-        contentContainerStyle={styles.list}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
+const EventList = React.forwardRef(
+  (
+    {
+      events,
+      title,
+      fontSize,
+      horizontal,
+      eventWidth,
+      eventHeight,
+      eventFontSize,
+      onEventPressed,
+      onEndReached,
+      ListHeaderComponent,
+    },
+    ref,
+  ) => {
+    const styles = createStyle(fontSize, horizontal);
+    const renderItem = item => (
+      <EventItem
+        image={item.image}
+        title={item.title}
+        width={eventWidth}
+        height={eventHeight}
+        fontSize={eventFontSize}
+        onPress={() => onEventPressed(item)}
         onEndReached={() => onEndReached()}
-        onEndReachedThreshold={1}
       />
-    </View>
-  );
-};
+    );
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>{title}</Text>
+        <FlatList
+          data={events}
+          horizontal={horizontal}
+          ListHeaderComponent={ListHeaderComponent}
+          renderItem={({item}) => renderItem(item)}
+          keyExtractor={item => item.event}
+          contentContainerStyle={styles.list}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          onEndReached={() => onEndReached()}
+          onEndReachedThreshold={1}
+          ref={ref}
+        />
+      </View>
+    );
+  },
+);
 
 const createStyle = (fontSize, horizontal) =>
   StyleSheet.create({
