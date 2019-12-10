@@ -121,27 +121,19 @@ class CreateEventScreen extends React.Component {
         description: this.state.description,
         date: this.state.date.toString(),
       });
-
-      console.log('image', this.state.image);
       const data = new FormData();
       data.append('image', {
         uri: this.state.image.path,
         name: 'image',
         type: this.state.image.mime,
       });
-
-      console.log('res', res.data);
-
       const saveImageRes = await axios.post(
         `http://ddea6d0e.ngrok.io/api/event/${res.data.id}/image`,
         data,
       );
-      console.log(saveImageRes);
-      this.props.navigation.navigate('HomeNavigator', {reload: true});
-      // bodyFormData.set('image', imageFile);
+      // TODO: Exibir mensagem de acordo com a resposta da requisição
     } catch (e) {
-      console.log('error when posting event');
-      console.log(e);
+      // TODO: Exibir mensagem de erro, provavelmente o erro aqui seria questão de conexão com a internet
     } finally {
       this.setState({loading: false});
     }
