@@ -83,6 +83,17 @@ class CreateEventScreen extends React.Component {
     }));
   }
 
+  async showImagePicker() {
+    const image = await ImagePicker.openPicker({
+      width: 300,
+      height: 200,
+      cropping: true,
+    });
+
+    console.log('image was');
+    console.log(image);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -122,6 +133,12 @@ class CreateEventScreen extends React.Component {
         <Text>
           Data do Evento: {this.dateString()}, -{this.state.description}-
         </Text>
+        <LoadingButton
+          style={styles.button}
+          onPress={() => this.showImagePicker()}
+        >
+          Escolher imagem
+        </LoadingButton>
       </View>
     );
   }
