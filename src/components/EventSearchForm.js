@@ -17,10 +17,10 @@ class EventSearchForm extends React.Component {
         <View style={styles.card}>
           <Text style={styles.title}>Busque por Eventos</Text>
           <View style={styles.inputContainer}>
-            <CustomTextInput placeholder="testing" backgroundColor="#f5f5f5" />
+            <CustomTextInput placeholder="testing" backgroundColor="#ebebeb" />
           </View>
           <View style={styles.inputContainer}>
-            <CustomTextInput placeholder="testing" backgroundColor="#f5f5f5" />
+            <CustomTextInput placeholder="testing" backgroundColor="#ebebeb" />
           </View>
           <LoadingButton style={styles.buttonSyle}>BUSCAR</LoadingButton>
         </View>
