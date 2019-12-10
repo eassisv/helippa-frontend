@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingButton from '../components/LoadingButton';
+import ImagePicker from 'react-native-image-crop-picker';
 
 class CreateEventScreen extends React.Component {
   constructor({navigation}) {
@@ -27,16 +28,21 @@ class CreateEventScreen extends React.Component {
   setDay(event, date) {
     console.log('set date called with');
     console.log(date);
-    this.setState(prevState => {
-      const newDate = new Date(prevState.date);
-      newDate.setFullYear(date.getFullYear());
-      newDate.setMonth(date.getMonth());
-      newDate.setDate(date.getDate());
-      return {
-        date: newDate,
-        showDatePicker: false,
-      };
-    });
+    this.setState(
+      prevState => {
+        const newDate = new Date(prevState.date);
+        newDate.setFullYear(date.getFullYear());
+        newDate.setMonth(date.getMonth());
+        newDate.setDate(date.getDate());
+        return {
+          date: newDate,
+          showDatePicker: false,
+        };
+      },
+      () => {
+        this.showTimePicker();
+      },
+    );
   }
 
   setTime(event, date) {
@@ -100,12 +106,6 @@ class CreateEventScreen extends React.Component {
           onPress={() => this.showDayPicker()}
         >
           Alterar data
-        </LoadingButton>
-        <LoadingButton
-          style={styles.button}
-          onPress={() => this.showTimePicker()}
-        >
-          Alterar horário
         </LoadingButton>
         {this.state.showDatePicker && (
           <DateTimePicker
