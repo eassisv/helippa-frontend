@@ -12,9 +12,10 @@ export default class EventDetailScreen extends React.Component {
 
   render() {
     const {picture} = this.props.navigation.state.params.event;
+    const image = picture ? `http://ddea6d0e.ngrok.io/${picture}` : '';
     return (
       <View style={styles.container}>
-        <LoadingImage source={picture} width={width} height={height} />
+        <LoadingImage source={image} width={width} height={height} />
       </View>
     );
   }

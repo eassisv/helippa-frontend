@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {TextInput} from 'react-native-gesture-handler';
 import CustomTextInput from './CustomTextInput';
 import LoadingButton from './LoadingButton';
 

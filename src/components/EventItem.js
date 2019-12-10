@@ -7,10 +7,12 @@ export default class EventItem extends React.Component {
   render() {
     const {event, width, height, fontSize, onPress} = this.props;
     const styles = createStyle(width, height, fontSize);
-    console.log(event);
+    const image = event.picture
+      ? `http://ddea6d0e.ngrok.io/${event.picture}`
+      : '';
     return (
       <TouchableOpacity style={styles.container} onPress={onPress}>
-        <LoadingImage source={event.picture} width={width} height={height} />
+        <LoadingImage source={image} width={width} height={height} />
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>{event.name}</Text>
         </View>
@@ -23,6 +25,7 @@ const createStyle = (width, height, fontSize) =>
   StyleSheet.create({
     container: {
       width,
+      marginVertical: 12,
     },
     image: {
       width,
@@ -44,12 +47,7 @@ const createStyle = (width, height, fontSize) =>
     },
     titleWrapper: {
       width: '100%',
-      marginTop: 10,
-    },
-    textPlaceholder: {
-      height: fontSize + 2,
-      width: '80%',
-      backgroundColor: '#f1f1f1',
+      marginTop: 3,
     },
   });
 

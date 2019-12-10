@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 export default class LoadingImage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {error: this.props.source ? false : true};
+    this.state = {error: !this.props.source};
   }
 
   onImageError() {
@@ -17,9 +17,7 @@ export default class LoadingImage extends React.Component {
   render() {
     const {error} = this.state;
     const {source, width, height} = this.props;
-    const image = typeof source === 'string' ? {uri: source} : source;
     const styles = createStyles(width, height);
-    console.log('image', image);
     return (
       <View>
         <View style={styles.placeholder} />
@@ -27,7 +25,7 @@ export default class LoadingImage extends React.Component {
           <LoadingErrorImage width={width} height={height} />
         ) : (
           <FastImage
-            source={image}
+            source={{uri: source}}
             resizeMode="stretch"
             style={styles.image}
             onError={() => this.onImageError()}
