@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingButton from '../components/LoadingButton';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePickerBox from '../components/ImagePickerBox';
 
 class CreateEventScreen extends React.Component {
   static navigationOptions = {
@@ -14,8 +14,8 @@ class CreateEventScreen extends React.Component {
     ),
   };
 
-  constructor({navigation}) {
-    super({navigation});
+  constructor(props) {
+    super(props);
     this.state = {
       showDatePicker: false,
       date: new Date(),
@@ -27,11 +27,17 @@ class CreateEventScreen extends React.Component {
   }
 
   dateString() {
-    return `${this.state.date.toLocaleDateString()} ${this.state.date.toLocaleTimeString()}`;
+    const {date} = this.state;
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     // const day = this.state.date.getDate();
     // const month = this.state.date.getMonth() + 1;
     // const year = this.state.date.getFullYear();
     // return `${day}/${month}/${year}`;
+  }
+
+  timeString() {
+    const {date} = this.state;
+    return `${date.getHours()}:${date.getMinutes()}`;
   }
 
   setDay(event, date) {
@@ -92,29 +98,21 @@ class CreateEventScreen extends React.Component {
     }));
   }
 
-  async showImagePicker() {
-    try {
-      const image = await ImagePicker.openPicker({
-        width: 300,
-        height: 200,
-        cropping: true,
-      });
-
-      this.setState({
-        image,
-      });
-      console.log('image was');
-      console.log(image);
-    } catch (e) {}
+  onChangeImage(image) {
+    this.setState({image});
   }
 
   render() {
-    const {image} = this.state;
     const {width} = Dimensions.get('window');
     const widthMinusPadding = width - 30;
+    const styles = createStyles({widthMinusPadding});
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Crie um Evento</Text>
+        <ImagePickerBox
+          style={styles.picker}
+          onChange={img => this.onChangeImage(img)}
+        />
         <CustomTextInput
           name="name"
           placeholder="Nome do evento"
@@ -147,23 +145,10 @@ class CreateEventScreen extends React.Component {
             mode={this.state.mode}
           />
         )}
-        <Text>
-          Data do Evento: {this.dateString()}, -{this.state.description}-
+        <Text style={styles.date}>
+          Evento ocorre em {this.dateString()} às {this.timeString()}
         </Text>
-        <LoadingButton
-          style={styles.button}
-          onPress={() => this.showImagePicker()}
-        >
-          Escolher imagem
-        </LoadingButton>
-        <Image
-          source={{uri: image.path}}
-          style={{
-            width: image.width,
-            height: image.height,
-          }}
-        />
-        <LoadingButton style={styles.button}>teste</LoadingButton>
+        <LoadingButton style={styles.button}>CRIAR EVENTO</LoadingButton>
       </View>
     );
   }
@@ -171,23 +156,35 @@ class CreateEventScreen extends React.Component {
 
 const defalutSpacing = 15;
 
-const styles = StyleSheet.create({
-  container: {
-    padding: defalutSpacing,
-  },
-  title: {
-    fontSize: defalutSpacing,
-    fontWeight: '700',
-    color: '#444',
-  },
-  input: {
-    marginTop: defalutSpacing,
-    elevation: 3,
-  },
-  button: {
-    marginTop: defalutSpacing,
-    backgroundColor: 'darkcyan',
-  },
-});
+const createStyles = ({widthMinusPadding}) =>
+  StyleSheet.create({
+    container: {
+      padding: defalutSpacing,
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: '700',
+      color: '#444',
+    },
+    input: {
+      marginTop: defalutSpacing,
+      elevation: 3,
+    },
+    button: {
+      marginTop: defalutSpacing,
+      backgroundColor: 'darkcyan',
+      borderRadius: 2,
+      elevation: 3,
+    },
+    picker: {
+      height: 200,
+      marginTop: defalutSpacing,
+      width: widthMinusPadding,
+      padding: defalutSpacing,
+    },
+    date: {
+      marginTop: defalutSpacing,
+    },
+  });
 
 export default CreateEventScreen;
