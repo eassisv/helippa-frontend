@@ -30,11 +30,20 @@ const getRandomEvents = () => {
 
 const events = getRandomEvents();
 
+const {width} = Dimensions.get('window');
+const height = Math.round(width * (2 / 3));
+
 export default class HomeScreen extends Component {
+  static navigationOptions = {
+    drawerLabel: 'Principal',
+  };
+
   render() {
+    const {navigation} = this.props;
+    console.log(navigation);
     return (
       <View style={styles.container}>
-        <HomeHeader />
+        <HomeHeader onPressMenu={() => navigation.openDrawer()} />
         <View style={styles.container}>
           <EventList
             events={events}
@@ -42,8 +51,8 @@ export default class HomeScreen extends Component {
               this.props.navigation.push('EventDetailScreen', {event})
             }
             ListHeaderComponent={<HomeListHeader />}
-            eventWidth={300}
-            eventHeight={200}
+            eventWidth={width}
+            eventHeight={height}
             eventFontSize={16}
           />
         </View>
@@ -55,5 +64,6 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f7f7f7',
   },
 });
