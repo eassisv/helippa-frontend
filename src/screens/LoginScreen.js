@@ -12,7 +12,7 @@ const logo = require('../../assets/logo-e-escrita-transparente-vertical.png');
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
-    const showModal = this.props.navigation.getParam('showModal', false);
+    const showModal = this.props.navigation.getParam('showModal', true); // TODO mudar para true
     this.state = {showModal, loading: false};
     StatusBar.setBackgroundColor(showModal ? 'orange' : 'darkcyan', false);
   }
@@ -25,8 +25,6 @@ export default class LoginScreen extends React.Component {
     try {
       const fbToken = await AsyncStorage.getItem('fbToken');
       const apiToken = await AsyncStorage.getItem('apiToken');
-      console.log('fbToken:', fbToken);
-      console.log('apiToken:', apiToken);
       if (fbToken && apiToken) {
         this.navigateToHome();
       }
@@ -43,28 +41,25 @@ export default class LoginScreen extends React.Component {
       ]);
       if (!res.isCancelled) {
         const fbToken = await AccessToken.getCurrentAccessToken();
+        res = await axios.post(
+          'http://b44087f3.ngrok.io/api/authenticate',
+          {},
+          {headers: {fbToken: fbToken.accessToken}},
+        );
+        const apiToken = res.data.token;
         try {
-          res = await axios.post(
-            'http://b44087f3.ngrok.io/api/authenticate',
-            {},
-            {headers: {fbToken: fbToken.accessToken}},
-          );
-          const apiToken = res.data.token;
-          try {
-            await AsyncStorage.multiSet([
-              ['fbToken', fbToken.accessToken],
-              ['apiToken', apiToken],
-            ]);
-            this.navigateToHome();
-          } catch (error) {
-            // TODO: ver uma mensagem para mostrar ao usuário
-          }
-        } catch (error) {
-          // TODO
-        }
+          await AsyncStorage.multiSet([
+            ['fbToken', fbToken.accessToken],
+            ['apiToken', apiToken],
+          ]);
+          this.navigateToHome();
+        } catch (error) {}
       }
     } catch (error) {
-      Alert.alert('Erro ao logar', error);
+      Alert.alert(
+        'Erro ao tentar logar',
+        'Talvez você esteja sem conexão com a internet',
+      );
     }
     this.setState({loading: false});
   }
@@ -73,7 +68,6 @@ export default class LoginScreen extends React.Component {
     this.setState({showModal: false});
     StatusBar.setBackgroundColor('darkcyan', false);
   }
-  //TODO tratar o erro do login sem internet
   render() {
     const {showModal, loading} = this.state;
     return (

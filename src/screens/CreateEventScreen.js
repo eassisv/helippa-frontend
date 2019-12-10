@@ -1,11 +1,19 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingButton from '../components/LoadingButton';
 import ImagePickerBox from '../components/ImagePickerBox';
 
 class CreateEventScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Adicionar evento',
+    drawerIcon: ({tintColor}) => (
+      <Icon name="calendar-plus-o" size={26} color={tintColor} />
+    ),
+  };
+
   constructor(props) {
     super(props);
     this.state = {
