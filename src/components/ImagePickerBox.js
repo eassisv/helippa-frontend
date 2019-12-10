@@ -42,10 +42,7 @@ class ImagePickerBox extends React.Component {
     // typeof this.state.image.path === 'string' ? {uri: source} : source;
     return (
       <TouchableOpacity onPress={() => this.chooseImage()}>
-        <ImageBackground
-          source={imageSource}
-          style={{...style, ...styles.default}}
-        >
+        <ImageBackground source={imageSource} style={[style, styles.default]}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>Escolha uma imagem</Text>
           </View>
@@ -70,7 +67,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   default: {
-    backgroundColor: '#eee',
+    backgroundColor: '#ff0000',
     borderRadius: 2,
   },
 });

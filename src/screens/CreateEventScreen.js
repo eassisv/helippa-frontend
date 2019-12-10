@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  KeyboardAvoidingView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -147,69 +154,78 @@ class CreateEventScreen extends React.Component {
     return (
       <View>
         <HomeHeader
-          onPressLogo={() => navigation.navigate('HomeNavigator')}
+          onPressLogo={() => navigation.navigate('homeNavigator')}
           onPressMenu={() => navigation.openDrawer()}
         />
-        <View style={styles.container}>
-          <Text style={styles.title}>Crie um Evento</Text>
-          <ImagePickerBox
-            style={styles.picker}
-            onChange={img => this.onChangeImage(img)}
-          />
-          <CustomTextInput
-            name="name"
-            placeholder="Nome do evento"
-            style={styles.input}
-            onChangeText={name => this.onChangeName(name)}
-            value={this.state.name}
-          />
-          <CustomTextInput
-            name=""
-            placeholder="Descrição do Evento"
-            style={styles.input}
-            onChangeText={desc => this.onChangeDesc(desc)}
-            value={this.state.description}
-          />
-          <LoadingButton
-            style={styles.button}
-            onPress={() => this.showDayPicker()}
-          >
-            Alterar data
-          </LoadingButton>
-          {this.state.showDatePicker && (
-            <DateTimePicker
-              value={this.state.date}
-              onChange={(event, date) =>
-                this.state.mode === 'date'
-                  ? this.setDay(event, date)
-                  : this.setTime(event, date)
-              }
-              is24Hour={true}
-              mode={this.state.mode}
+        <KeyboardAvoidingView
+          style={styles.avoidingViewContainer}
+          behavior="position"
+        >
+          <View style={styles.container}>
+            <Text style={styles.title}>Crie um Evento</Text>
+            <ImagePickerBox
+              style={styles.picker}
+              onChange={img => this.onChangeImage(img)}
             />
-          )}
-          <Text style={styles.date}>
-            Evento ocorre em {this.dateString()} às {this.timeString()}
-          </Text>
-          <LoadingButton
-            style={styles.button}
-            onPress={() => this.postEvent()}
-            loading={this.state.loading}
-          >
-            Salvar
-          </LoadingButton>
-        </View>
+            <CustomTextInput
+              name="name"
+              placeholder="Nome do evento"
+              style={styles.input}
+              onChangeText={name => this.onChangeName(name)}
+              value={this.state.name}
+            />
+            <CustomTextInput
+              name=""
+              placeholder="Descrição do Evento"
+              style={styles.input}
+              onChangeText={desc => this.onChangeDesc(desc)}
+              value={this.state.description}
+            />
+            <LoadingButton
+              style={styles.button}
+              onPress={() => this.showDayPicker()}
+            >
+              Alterar data
+            </LoadingButton>
+            {this.state.showDatePicker && (
+              <DateTimePicker
+                value={this.state.date}
+                onChange={(event, date) =>
+                  this.state.mode === 'date'
+                    ? this.setDay(event, date)
+                    : this.setTime(event, date)
+                }
+                is24Hour={true}
+                mode={this.state.mode}
+              />
+            )}
+            <Text style={styles.date}>
+              Evento ocorre em {this.dateString()} às {this.timeString()}
+            </Text>
+            <LoadingButton
+              style={styles.button}
+              onPress={() => this.postEvent()}
+              loading={this.state.loading}
+            >
+              Salvar
+            </LoadingButton>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
 }
 
-const defalutSpacing = 15;
+const defaultSpacing = 15;
 
 const createStyles = ({widthMinusPadding}) =>
   StyleSheet.create({
+    avoidingViewContainer: {
+      backgroundColor: '#f7f7f7',
+    },
     container: {
-      padding: defalutSpacing,
+      padding: defaultSpacing,
+      backgroundColor: '#eeeeee',
     },
     title: {
       fontSize: 20,
@@ -217,23 +233,23 @@ const createStyles = ({widthMinusPadding}) =>
       color: '#444',
     },
     input: {
-      marginTop: defalutSpacing,
+      marginTop: defaultSpacing,
       elevation: 3,
     },
     button: {
-      marginTop: defalutSpacing,
+      marginTop: defaultSpacing,
       backgroundColor: 'darkcyan',
       borderRadius: 2,
       elevation: 3,
     },
     picker: {
       height: 200,
-      marginTop: defalutSpacing,
+      marginTop: defaultSpacing,
       width: widthMinusPadding,
-      padding: defalutSpacing,
+      padding: defaultSpacing,
     },
     date: {
-      marginTop: defalutSpacing,
+      marginTop: defaultSpacing,
     },
   });
 
