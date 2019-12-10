@@ -1,14 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomTextInput from '../components/CustomTextInput';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingButton from '../components/LoadingButton';
+import ImagePicker from 'react-native-image-crop-picker';
 
 class CreateEventScreen extends React.Component {
   static navigationOptions = {
     drawerLabel: 'Adicionar evento',
-    drawerIcon: ({focused, tintColor}) => (
+    drawerIcon: ({tintColor}) => (
       <Icon name="calendar-plus-o" size={26} color={tintColor} />
     ),
   };
@@ -21,6 +22,7 @@ class CreateEventScreen extends React.Component {
       name: '',
       description: '',
       mode: 'date',
+      image: '',
     };
   }
 
@@ -35,16 +37,21 @@ class CreateEventScreen extends React.Component {
   setDay(event, date) {
     console.log('set date called with');
     console.log(date);
-    this.setState(prevState => {
-      const newDate = new Date(prevState.date);
-      newDate.setFullYear(date.getFullYear());
-      newDate.setMonth(date.getMonth());
-      newDate.setDate(date.getDate());
-      return {
-        date: newDate,
-        showDatePicker: false,
-      };
-    });
+    this.setState(
+      prevState => {
+        const newDate = new Date(prevState.date);
+        newDate.setFullYear(date.getFullYear());
+        newDate.setMonth(date.getMonth());
+        newDate.setDate(date.getDate());
+        return {
+          date: newDate,
+          showDatePicker: false,
+        };
+      },
+      () => {
+        this.showTimePicker();
+      },
+    );
   }
 
   setTime(event, date) {
@@ -85,7 +92,26 @@ class CreateEventScreen extends React.Component {
     }));
   }
 
+  async showImagePicker() {
+    try {
+      const image = await ImagePicker.openPicker({
+        width: 300,
+        height: 200,
+        cropping: true,
+      });
+
+      this.setState({
+        image,
+      });
+      console.log('image was');
+      console.log(image);
+    } catch (e) {}
+  }
+
   render() {
+    const {image} = this.state;
+    const {width} = Dimensions.get('window');
+    const widthMinusPadding = width - 30;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Crie um Evento</Text>
@@ -109,12 +135,6 @@ class CreateEventScreen extends React.Component {
         >
           Alterar data
         </LoadingButton>
-        <LoadingButton
-          style={styles.button}
-          onPress={() => this.showTimePicker()}
-        >
-          Alterar horário
-        </LoadingButton>
         {this.state.showDatePicker && (
           <DateTimePicker
             value={this.state.date}
@@ -130,25 +150,42 @@ class CreateEventScreen extends React.Component {
         <Text>
           Data do Evento: {this.dateString()}, -{this.state.description}-
         </Text>
+        <LoadingButton
+          style={styles.button}
+          onPress={() => this.showImagePicker()}
+        >
+          Escolher imagem
+        </LoadingButton>
+        <Image
+          source={{uri: image.path}}
+          style={{
+            width: image.width,
+            height: image.height,
+          }}
+        />
+        <LoadingButton style={styles.button}>teste</LoadingButton>
       </View>
     );
   }
 }
+
+const defalutSpacing = 15;
+
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: defalutSpacing,
   },
   title: {
-    fontSize: 20,
+    fontSize: defalutSpacing,
     fontWeight: '700',
     color: '#444',
   },
   input: {
-    marginTop: 20,
+    marginTop: defalutSpacing,
     elevation: 3,
   },
   button: {
-    marginTop: 20,
+    marginTop: defalutSpacing,
     backgroundColor: 'darkcyan',
   },
 });
