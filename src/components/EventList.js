@@ -20,17 +20,18 @@ const EventList = React.forwardRef(
     ref,
   ) => {
     const styles = createStyle(fontSize, horizontal);
-    const renderItem = item => (
-      <EventItem
-        image={item.image}
-        title={item.title}
-        width={eventWidth}
-        height={eventHeight}
-        fontSize={eventFontSize}
-        onPress={() => onEventPressed(item)}
-        onEndReached={() => onEndReached()}
-      />
-    );
+    const renderItem = event => {
+      return (
+        <EventItem
+          event={event}
+          width={eventWidth}
+          height={eventHeight}
+          fontSize={eventFontSize}
+          onPress={() => onEventPressed(event)}
+          onEndReached={() => onEndReached()}
+        />
+      );
+    };
 
     return (
       <View style={styles.container}>
@@ -40,7 +41,7 @@ const EventList = React.forwardRef(
           horizontal={horizontal}
           ListHeaderComponent={ListHeaderComponent}
           renderItem={({item}) => renderItem(item)}
-          keyExtractor={item => item.event}
+          keyExtractor={event => String(event.id)}
           contentContainerStyle={styles.list}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}

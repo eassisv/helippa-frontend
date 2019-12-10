@@ -21,7 +21,7 @@ export class HomeListHeader extends Component {
     return (
       <View style={styles.container}>
         <EventSearchForm />
-        <View style={styles.eventsWrapper}>
+        {/* <View style={styles.eventsWrapper}>
           {rememberMeEvents.length ? (
             <EventList
               events={rememberMeEvents}
@@ -34,7 +34,7 @@ export class HomeListHeader extends Component {
             />
           ) : null}
         </View>
-        {showTitle ? <Text style={styles.title}>Destaques</Text> : null}
+        {showTitle ? <Text style={styles.title}>Destaques</Text> : null} */}
       </View>
     );
   }

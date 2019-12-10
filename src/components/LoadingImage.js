@@ -1,33 +1,42 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import LoadingErrorImage from './LoadingErrorImage';
 import PropTypes from 'prop-types';
 
-const LoadingImage = ({
-  source,
-  width,
-  height,
-  onLoadStart,
-  onLoadEnd,
-  resizeMethod,
-  resizeMode,
-}) => {
-  const image = typeof source === 'string' ? {uri: source} : source;
-  const styles = createStyles(width, height);
+export default class LoadingImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {error: this.props.source ? false : true};
+  }
 
-  return (
-    <View>
-      <View style={styles.placeholder} />
-      <Image
-        source={image}
-        resizeMode={resizeMode}
-        resizeMethod={resizeMethod}
-        style={styles.image}
-        onLoadStart={onLoadStart}
-        onLoadEnd={onLoadEnd}
-      />
-    </View>
-  );
-};
+  onImageError() {
+    this.setState({loading: false, error: true});
+  }
+
+  render() {
+    const {error} = this.state;
+    const {source, width, height} = this.props;
+    const image = typeof source === 'string' ? {uri: source} : source;
+    const styles = createStyles(width, height);
+    console.log('image', image);
+    return (
+      <View>
+        <View style={styles.placeholder} />
+        {error ? (
+          <LoadingErrorImage width={width} height={height} />
+        ) : (
+          <FastImage
+            source={image}
+            resizeMode="stretch"
+            style={styles.image}
+            onError={() => this.onImageError()}
+          />
+        )}
+      </View>
+    );
+  }
+}
 
 const createStyles = (width, height) =>
   StyleSheet.create({
@@ -66,5 +75,3 @@ LoadingImage.defaultProps = {
   onLoadStart: () => {},
   onLoadEnd: () => {},
 };
-
-export default LoadingImage;

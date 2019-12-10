@@ -1,53 +1,18 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import LoadingErrorImage from './LoadingErrorImage';
+import LoadingImage from './LoadingImage';
 import PropTypes from 'prop-types';
 
 export default class EventItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {loading: true, error: false};
-  }
-
-  setLoadingOff() {
-    this.setState({loading: false});
-  }
-
-  setErrorTrue() {
-    this.setState({error: true, loading: false});
-  }
-
   render() {
-    const {loading, error} = this.state;
-    const {image, title, width, height, fontSize, onPress} = this.props;
+    const {event, width, height, fontSize, onPress} = this.props;
     const styles = createStyle(width, height, fontSize);
-
+    console.log(event);
     return (
       <TouchableOpacity style={styles.container} onPress={onPress}>
-        <View>
-          {!error ? (
-            <FastImage
-              source={{uri: image}}
-              style={styles.image}
-              onLoadEnd={() => this.setLoadingOff()}
-              onError={() => this.setErrorTrue()}
-            />
-          ) : (
-            <LoadingErrorImage
-              style={styles.image}
-              width={width}
-              height={height}
-            />
-          )}
-          {loading || !image ? <View style={styles.imagePlaceholder} /> : null}
-        </View>
+        <LoadingImage source={event.picture} width={width} height={height} />
         <View style={styles.titleWrapper}>
-          {loading || !image ? (
-            <View style={styles.textPlaceholder} />
-          ) : (
-            <Text style={styles.title}>{title}</Text>
-          )}
+          <Text style={styles.title}>{event.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -58,7 +23,6 @@ const createStyle = (width, height, fontSize) =>
   StyleSheet.create({
     container: {
       width,
-      margin: 10,
     },
     image: {
       width,
@@ -90,8 +54,7 @@ const createStyle = (width, height, fontSize) =>
   });
 
 EventItem.propTypes = {
-  image: PropTypes.string,
-  title: PropTypes.string,
+  event: PropTypes.object.isRequired,
   onPress: PropTypes.func,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -99,8 +62,6 @@ EventItem.propTypes = {
 };
 
 EventItem.defaultProps = {
-  image: null,
-  title: '',
   onPress: () => {},
   width: 300,
   height: 200,

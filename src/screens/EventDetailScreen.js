@@ -1,18 +1,29 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import EventDetailImage from '../components/EventDetailImage';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import LoadingImage from '../components/LoadingImage';
+
+const {width} = Dimensions.get('window');
+const height = Math.round(width * (2 / 3));
 
 export default class EventDetailScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    console.log(this.props.navigation.state);
+    const {picture} = this.props.navigation.state.params.event;
     return (
-      <View>
-        <Text>Detail</Text>
-        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-          <Text>voltar</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <LoadingImage source={picture} width={width} height={height} />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  contianer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
