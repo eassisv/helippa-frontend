@@ -116,7 +116,7 @@ class CreateEventScreen extends React.Component {
   async postEvent() {
     try {
       this.setState({loading: true});
-      const res = await axios.post('http://ddea6d0e.ngrok.io/api/event', {
+      const res = await axios.post('http://9345e3a0.ngrok.io/api/event', {
         name: this.state.name,
         description: this.state.description,
         date: this.state.date.toString(),

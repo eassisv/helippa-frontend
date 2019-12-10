@@ -55,7 +55,7 @@ export default class LoginScreen extends React.Component {
       if (!res.isCancelled) {
         const fbToken = await AccessToken.getCurrentAccessToken();
         res = await axios.post(
-          'http://ddea6d0e.ngrok.io/api/authenticate',
+          'http://9345e3a0.ngrok.io/api/authenticate',
           {},
           {headers: {fbToken: fbToken.accessToken}},
         );

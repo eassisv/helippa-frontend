@@ -27,7 +27,7 @@ export default class HomeScreen extends Component {
   async getEvents() {
     this.setState({loading: true});
     try {
-      const res = await axios.get('http://ddea6d0e.ngrok.io/api/event');
+      const res = await axios.get('http://9345e3a0.ngrok.io/api/event');
       console.log(res.data);
       this.setState({events: res.data.reverse(), loading: false});
       console.log('events:', this.state.events);
