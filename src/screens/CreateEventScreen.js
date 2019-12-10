@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Dimensions,
   KeyboardAvoidingView,
 } from 'react-native';
@@ -40,10 +39,6 @@ class CreateEventScreen extends React.Component {
   dateString() {
     const {date} = this.state;
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    // const day = this.state.date.getDate();
-    // const month = this.state.date.getMonth() + 1;
-    // const year = this.state.date.getFullYear();
-    // return `${day}/${month}/${year}`;
   }
 
   timeString() {
@@ -52,8 +47,6 @@ class CreateEventScreen extends React.Component {
   }
 
   setDay(event, date) {
-    console.log('set date called with');
-    console.log(date);
     this.setState(
       prevState => {
         const newDate = new Date(prevState.date);
@@ -72,7 +65,6 @@ class CreateEventScreen extends React.Component {
   }
 
   setTime(event, date) {
-    console.log('set time ');
     this.setState(prevState => {
       const newDate = new Date(prevState.date);
       newDate.setHours(date.getHours(), date.getMinutes());

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   StyleSheet,
   View,
-  ScrollView,
+  Alert,
   Dimensions,
   ActivityIndicator,
   StatusBar,
@@ -21,18 +21,18 @@ export default class HomeScreen extends Component {
     this.state = {loading: false, events: []};
     this.flatList = React.createRef();
     StatusBar.setBackgroundColor('darkcyan');
-    console.log('asdfuhsadufhsdufhsdauhsfdhu', this.props.navigation.state);
   }
 
   async getEvents() {
     this.setState({loading: true});
     try {
       const res = await axios.get('http://9345e3a0.ngrok.io/api/event');
-      console.log(res.data);
       this.setState({events: res.data.reverse(), loading: false});
-      console.log('events:', this.state.events);
     } catch (error) {
-      console.log('error:', error);
+      Alert.alert(
+        'Erro ao carregar eventos',
+        'Talvez você esteja sem conexão com a internet',
+      );
     }
     this.setState({loading: false});
   }

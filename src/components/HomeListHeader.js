@@ -18,7 +18,6 @@ export class HomeListHeader extends Component {
 
   render() {
     const {rememberMeEvents} = this.state;
-    const {showTitle} = this.props;
     return (
       <View style={styles.container}>
         <EventSearchForm />
@@ -29,7 +28,9 @@ export class HomeListHeader extends Component {
         >
           Atualizar
         </LoadingButton>
-        {/* <View style={styles.eventsWrapper}>
+        {/*
+        // TODO: Adicionar lista de eventos que o usuário pediu para ser lembrado
+        <View style={styles.eventsWrapper}>
           {rememberMeEvents.length ? (
             <EventList
               events={rememberMeEvents}

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
+import {View, StyleSheet, StatusBar, Alert} from 'react-native';
 import {LoginManager, AccessToken} from 'react-native-fbsdk';
 import AsyncStorage from '@react-native-community/async-storage';
 import FastImage from 'react-native-fast-image';
@@ -18,8 +12,7 @@ const logo = require('../../assets/logo-e-escrita-transparente-vertical.png');
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {showModal: false, loadingScreen: true, loading: false};
+    this.state = {showModal: false, loading: false};
   }
 
   navigateToHome() {
@@ -27,7 +20,7 @@ export default class LoginScreen extends React.Component {
   }
 
   setModal() {
-    const showModal = this.props.navigation.getParam('showModal', true); // TODO mudar para true
+    const showModal = this.props.navigation.getParam('showModal', true);
     this.setState({showModal, loadingScreen: false});
     StatusBar.setBackgroundColor(showModal ? 'orange' : 'darkcyan', false);
   }
@@ -82,7 +75,7 @@ export default class LoginScreen extends React.Component {
     StatusBar.setBackgroundColor('darkcyan', false);
   }
   render() {
-    const {showModal, loading, loadingScreen} = this.state;
+    const {showModal, loading} = this.state;
     return (
       <View style={styles.container}>
         <ModalLogo

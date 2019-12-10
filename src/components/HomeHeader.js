@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import PropTypes from 'prop-types';
 
 const logo = require('../../assets/escrita-darkcyan.png');
 
 const HomeHeader = ({onPressLogo, onPressMenu}) => {
-  console.log(onPressMenu);
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.logoWrapper} onPress={onPressLogo}>
@@ -40,5 +40,15 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
+
+HomeHeader.propTypes = {
+  onPressLogo: PropTypes.func,
+  onPressMenu: PropTypes.func,
+};
+
+HomeHeader.defaultProps = {
+  onPressLogo: () => {},
+  onPressMenu: () => {},
+};
 
 export default HomeHeader;

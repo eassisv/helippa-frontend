@@ -32,14 +32,7 @@ export default class EventDetailScreen extends React.Component {
       date,
       description,
     } = this.props.navigation.state.params.event;
-
     const dateObj = new Date(date);
-
-    console.log('props are');
-    console.log(picture);
-    console.log(name);
-    console.log(date);
-
     const image = picture ? `http://ddea6d0e.ngrok.io/${picture}` : '';
     return (
       <View style={styles.container}>

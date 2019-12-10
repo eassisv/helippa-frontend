@@ -18,7 +18,7 @@ export default class LogoutScreen extends React.Component {
 
   async componentDidMount() {
     await AsyncStorage.multiRemove(['fbToken', 'apiToken']);
-    await LoginManager.logOut();
+    LoginManager.logOut();
     this.props.navigation.navigate('LoginScreen', {showModal: false});
   }
 
