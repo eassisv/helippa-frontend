@@ -1,59 +1,48 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
 import HomeHeader from '../components/HomeHeader';
-import HomeListHeader from '../components/HomeLIstHeader';
+import HomeListHeader from '../components/HomeListHeader';
 import EventList from '../components/EventList';
 
-const useds = {};
-const random = () => Math.round(Math.random() * 1000);
-
-const getEvent = () => {
-  let event;
-  do {
-    event = random();
-  } while (useds[event] !== undefined);
-  useds[event] = event;
-  return {
-    event: `${event}`,
-    image: `http://picsum.photos/id/${event}/300/200/`,
-    title: `Eventinho ${event}`,
-  };
-};
-
-const getRandomEvents = () => {
-  const events = [];
-  for (let i = 0; i < 10; i++) {
-    events.push(getEvent());
-  }
-  return events;
-};
-
-const events = getRandomEvents();
-
-const {width} = Dimensions.get('window');
+const width = Dimensions.get('window').width - 30; // -30 because of padding
 const height = Math.round(width * (2 / 3));
 
 export default class HomeScreen extends Component {
-  static navigationOptions = {
-    drawerLabel: 'Principal',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {events: []};
+    this.flatList = React.createRef();
+  }
+
+  scrollToTop() {
+    this.flatList.current.scrollToOffset({
+      offset: 0,
+      animated: true,
+    });
+  }
+
+  openEvent(event) {
+    this.props.navigation.push('EventDetailScreen', {event});
+  }
 
   render() {
     const {navigation} = this.props;
-    console.log(navigation);
+    const {events} = this.state;
     return (
       <View style={styles.container}>
-        <HomeHeader onPressMenu={() => navigation.openDrawer()} />
+        <HomeHeader
+          onPressLogo={() => this.scrollToTop()}
+          onPressMenu={() => navigation.openDrawer()}
+        />
         <View style={styles.container}>
           <EventList
             events={events}
-            onEventPressed={event =>
-              this.props.navigation.push('EventDetailScreen', {event})
-            }
-            ListHeaderComponent={<HomeListHeader />}
+            ListHeaderComponent={<HomeListHeader navigation={navigation} />}
             eventWidth={width}
             eventHeight={height}
             eventFontSize={16}
+            onEventPressed={event => this.openEvent(event)}
+            ref={this.flatList}
           />
         </View>
       </View>

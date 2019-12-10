@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 2,
+    elevation: 3,
   },
   logo: {
     height: 40,
