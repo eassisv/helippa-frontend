@@ -13,6 +13,7 @@
 - [Componentes](#componentes)
   - [CustomTextInput](#customtextinput)
   - [EventItem](#eventitem)
+  - [EventList](#eventlist)
   - [FacebookButton](#facebookbutton)
   - [HomeHeader](#homeheader)
   - [ImagePickerBox](#imagepickerbox)
@@ -72,19 +73,30 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 | placeholder     | `string` | no       | `''`          |
 | style           | `object` | no       | `{}`          |
 
----
-
 ### `EventItem`
 
 | Property | Type                 | Required | Default value | Description                                           |
 | :------- | :------------------- | :------- | :------------ | :---------------------------------------------------- |
-| event    | `object`             | yes      | `{}`          | descrição de um evento retornado pela API             |
+| event    | `object`             | yes      |               | descrição de um evento retornado pela API             |
 | onPress  | `func`               | no       | `() => {}`    | função chamada ao tocar na imagem ou título do evento |
 | width    | `number` or `string` | no       | `300`         | largura da imagem                                     |
 | height   | `number` or `string` | no       | `200`         | altura da imagem                                      |
 | fontSize | `number`             | no       | `16`          |
 
----
+### `EventList`
+
+| Property            | Type                 | Required | Default value | Description                                            |
+| :------------------ | :------------------- | :------- | :------------ | :----------------------------------------------------- |
+| events              | `array`              | yes      |               | lista de eventos retornada pela API                     |
+| title               | `string`             | no       | `''`          |                                                        |
+| fontSize            | `number`             | no       | `20`          |                                                        |
+| horizontal          | `bool`               | no       | `false`       |                                                        |
+| eventWidth          | `number` or `string` | no       | `300`         | largura da imagem dos eventos                                     |
+| eventHeight         | `number` or `string` | no       | `200`         | altura da imagem dos eventos                                      |
+| eventFontSize       | `number`             | no       | `16`          | tamanho da fonte do título dos eventos                   |
+| onEventPressed      | `func`               | no       | `() => {}`    | função chamada quando um evento for tocado             |
+| onEndReached        | `func`               | no       | `() => {}`    | função chamada quando a rolagem chegar ao fim da lista |
+| ListHeaderComponent | `element`            | no       | `null`        | componente que será renderizado no início da lista     |
 
 ### `FacebookButton`
 
@@ -93,8 +105,6 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 | onPress  | `func` | no       | `() => {}`    |
 | loading  | `bool` | no       | `false`       | quando "true" desabilita os eventos do botão e exibe um ícone de loading |
 
----
-
 ### `HomeHeader`
 
 | Property    | Type   | Required | Default value | Description |
@@ -102,16 +112,12 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 | onPressLogo | `func` | no       | `() => {}`    |
 | onPressMenu | `func` | no       | `() => {}`    |
 
----
-
 ### `ImagePickerBox`
 
 | Property | Type     | Required | Default value | Description                                             |
 | :------- | :------- | :------- | :------------ | :------------------------------------------------------ |
 | style    | `object` | no       | `{}`          |
 | onChange | `func`   | no       | `() => {}`    | retorna a descrição da imagem selecionada pelo "picker" |
-
----
 
 ### `LoadingButton`
 
@@ -123,8 +129,6 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 | backgroundColor | `string` | no       | `'#eee'`      |
 | style           | `object` | no       | `{}`          |
 
----
-
 ### `LoadingErrorImage`
 
 Componente exibido quando ocorre erro no carregametno de uma imagem
@@ -133,8 +137,6 @@ Componente exibido quando ocorre erro no carregametno de uma imagem
 | :------- | :------- | :------- | :------------ | :---------- |
 | width    | `number` | no       | `300`         |
 | height   | `number` | no       | `200`         |
-
----
 
 ### `LoadingImage`
 
@@ -146,8 +148,6 @@ Exibe um retangulo do cinza do tamanho da imagem enquanto a imagem é carregada.
 | width    | `number` or `string` | no       | `300`         |
 | height   | `number` or `string` | no       | `200`         |
 
----
-
 ### `ModalLogo`
 
 | Property  | Type   | Required | Default value | Description |
@@ -157,4 +157,4 @@ Exibe um retangulo do cinza do tamanho da imagem enquanto a imagem é carregada.
 
 ---
 
-<sub>Esse documento usou o <a href="https://github.com/marborkowski/react-doc-generator" target="_blank">**React DOC Generator v1.2.5**</a>.</sub>
+<sub>Este documento usou o <a href="https://github.com/marborkowski/react-doc-generator" target="_blank">**React DOC Generator v1.2.5**</a>.</sub>
