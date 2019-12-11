@@ -10,6 +10,17 @@
   - [AppNavigator](#appnavigator)
   - [MainNavigator](#mainnavigator)
   - [HomeNavigator](#homenavigator)
+- [Componentes](#componentes)
+  - [CustomTextInput](#customtextinput)
+  - [EventItem](#eventitem)
+  - [FacebookButton](#facebookbutton)
+  - [HomeHeader](#homeheader)
+  - [ImagePickerBox](#imagepickerbox)
+  - [LoadingButton](#loadingbutton)
+  - [LoadingErrorImage](#loadingerrorimage)
+  - [LoadingImage](#loadingimage)
+  - [ModalLogo](#modallogo)
+
 
 ## Telas
 
@@ -63,7 +74,7 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 
 ---
 
-### 1. EventItem
+### `EventItem`
 
 | Property | Type                 | Required | Default value | Description                                           |
 | :------- | :------------------- | :------- | :------------ | :---------------------------------------------------- |
@@ -75,7 +86,7 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 
 ---
 
-### 1. FacebookButton
+### `FacebookButton`
 
 | Property | Type   | Required | Default value | Description                                                              |
 | :------- | :----- | :------- | :------------ | :----------------------------------------------------------------------- |
@@ -84,7 +95,7 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 
 ---
 
-### 1. HomeHeader
+### `HomeHeader`
 
 | Property    | Type   | Required | Default value | Description |
 | :---------- | :----- | :------- | :------------ | :---------- |
@@ -93,7 +104,7 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 
 ---
 
-### 1. ImagePickerBox
+### `ImagePickerBox`
 
 | Property | Type     | Required | Default value | Description                                             |
 | :------- | :------- | :------- | :------------ | :------------------------------------------------------ |
@@ -102,7 +113,7 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 
 ---
 
-### 1. LoadingButton
+### `LoadingButton`
 
 | Property        | Type     | Required | Default value | Description               |
 | :-------------- | :------- | :------- | :------------ | :------------------------ |
@@ -114,7 +125,7 @@ Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
 
 ---
 
-### 1. LoadingErrorImage
+### `LoadingErrorImage`
 
 Componente exibido quando ocorre erro no carregametno de uma imagem
 
@@ -125,7 +136,7 @@ Componente exibido quando ocorre erro no carregametno de uma imagem
 
 ---
 
-### 1. LoadingImage
+### `LoadingImage`
 
 Exibe um retangulo do cinza do tamanho da imagem enquanto a imagem é carregada. Se o carregamento da imagem falhar, exibe o componente `LoadingErrorImage`
 
@@ -137,7 +148,7 @@ Exibe um retangulo do cinza do tamanho da imagem enquanto a imagem é carregada.
 
 ---
 
-### 1. ModalLogo
+### `ModalLogo`
 
 | Property  | Type   | Required | Default value | Description |
 | :-------- | :----- | :------- | :------------ | :---------- |
