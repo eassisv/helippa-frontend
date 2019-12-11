@@ -1,16 +1,15 @@
-## Requirements
-```
-npm install -g expo-cli
-```
+### Como rodar o projeto
+Para configurar o ambiente de desenvolvilmento, verificar a documentação do React Native  
+https://facebook.github.io/react-native/docs/getting-started
 
-## Project setup
-*You must be in the project directory*
-```
-npm install or yarn install
-```
+```git clone https://github.com/eassisv/helippa-frontend && cd helippa-frontend```
 
-## Running Project
-*You must be in the project directory*
+Em seguida rode o comando para instalar o módulos javascript
 ```
-expo start or npm start
+yarn install
+ou
+npm install
 ```
+Para rodar o aplicativo no celular verificar novamente a documento do React Native  
+  
+Para ver a documentação dos componentes criados [clique aqui](https://github.com/eassisv/helippa-frontend/blob/master/docs.md)
