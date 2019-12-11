@@ -1,6 +1,10 @@
+# Helippa
+
 ### Como rodar o projeto
-Para configurar o ambiente de desenvolvilmento, verificar a documentação do React Native  
+Para configurar o ambiente de desenvolvimento, verificar a documentação do React Native  
 https://facebook.github.io/react-native/docs/getting-started
+
+#### Instalar dependências
 
 ```git clone https://github.com/eassisv/helippa-frontend && cd helippa-frontend```
 
@@ -14,6 +18,8 @@ npm install
 
 **_Dica:_** *Utilize o programa 'ngrok' para criar um tunel do localhost para a web*
 
-Para rodar o aplicativo no celular verificar novamente a documento do React Native  
+Para rodar o aplicativo no celular verificar novamente a documento do React Native 
+
+#### Documentação
   
 Para ver a documentação dos componentes criados [clique aqui](https://github.com/eassisv/helippa-frontend/blob/master/docs.md)
