@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import LoadingImage from '../components/LoadingImage';
 import HomeHeader from '../components/HomeHeader';
 
+const url = require('../../backendroute').default.baseUrl;
+
 const {width} = Dimensions.get('window');
 const height = Math.round(width * (2 / 3));
 
@@ -33,7 +35,7 @@ export default class EventDetailScreen extends React.Component {
       description,
     } = this.props.navigation.state.params.event;
     const dateObj = new Date(date);
-    const image = picture ? `http://ddea6d0e.ngrok.io/${picture}` : '';
+    const image = picture ? `${url}${picture}` : '';
     return (
       <View style={styles.container}>
         <HomeHeader

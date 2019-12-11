@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, StatusBar, Alert} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import {LoginManager, AccessToken} from 'react-native-fbsdk';
 import AsyncStorage from '@react-native-community/async-storage';
 import FastImage from 'react-native-fast-image';
@@ -7,12 +13,13 @@ import FacebookButton from '../components/FacebookButton';
 import ModalLogo from '../components/ModalLogo';
 import axios from 'axios';
 
+const url = require('../../backendroute').default.baseUrl;
 const logo = require('../../assets/logo-e-escrita-transparente-vertical.png');
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {showModal: false, loading: false};
+    this.state = {showModal: false, loading: false, loadingScreen: true};
   }
 
   navigateToHome() {
@@ -48,7 +55,7 @@ export default class LoginScreen extends React.Component {
       if (!res.isCancelled) {
         const fbToken = await AccessToken.getCurrentAccessToken();
         res = await axios.post(
-          'http://9345e3a0.ngrok.io/api/authenticate',
+          `${url}api/authenticate`,
           {},
           {headers: {fbToken: fbToken.accessToken}},
         );
@@ -75,18 +82,24 @@ export default class LoginScreen extends React.Component {
     StatusBar.setBackgroundColor('darkcyan', false);
   }
   render() {
-    const {showModal, loading} = this.state;
+    const {showModal, loading, loadingScreen} = this.state;
     return (
       <View style={styles.container}>
         <ModalLogo
           visible={showModal}
           onDismiss={() => this.onDismissModal()}
         />
-        <FastImage source={logo} style={styles.logo} resizeMode="contain" />
-        <FacebookButton
-          loading={loading}
-          onPress={() => this.loginWithFacebook()}
-        />
+        {loadingScreen ? (
+          <ActivityIndicator size="large" color="#fff" />
+        ) : (
+          <>
+            <FastImage source={logo} style={styles.logo} resizeMode="contain" />
+            <FacebookButton
+              loading={loading}
+              onPress={() => this.loginWithFacebook()}
+            />
+          </>
+        )}
       </View>
     );
   }

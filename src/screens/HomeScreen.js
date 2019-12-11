@@ -12,6 +12,8 @@ import HomeHeader from '../components/HomeHeader';
 import HomeListHeader from '../components/HomeListHeader';
 import EventList from '../components/EventList';
 
+const url = require('../../backendroute').default.baseUrl;
+
 const width = Dimensions.get('window').width - 30; // -30 because of padding
 const height = Math.round(width * (2 / 3));
 
@@ -26,7 +28,7 @@ export default class HomeScreen extends Component {
   async getEvents() {
     this.setState({loading: true});
     try {
-      const res = await axios.get('http://9345e3a0.ngrok.io/api/event');
+      const res = await axios.get(`${url}api/event`);
       this.setState({events: res.data.reverse(), loading: false});
     } catch (error) {
       Alert.alert(

@@ -29,9 +29,6 @@ class ImagePickerBox extends React.Component {
       this.setState({
         image,
       });
-      console.log('image was');
-      console.log(image);
-
       this.props.onChange(image);
     } catch (e) {}
   }
@@ -40,7 +37,6 @@ class ImagePickerBox extends React.Component {
     const {style} = this.props;
     const {image} = this.state;
     const imageSource = image ? {uri: image.path} : null;
-    // typeof this.state.image.path === 'string' ? {uri: source} : source;
     return (
       <TouchableOpacity onPress={() => this.chooseImage()}>
         <ImageBackground source={imageSource} style={[style, styles.default]}>
@@ -84,7 +80,6 @@ const styles = StyleSheet.create({
 });
 
 ImagePickerBox.propTypes = {
-  // source: PropTypes.oneOf([PropTypes.string, PropTypes.func]),
   style: PropTypes.object,
   onChange: PropTypes.func,
 };

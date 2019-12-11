@@ -15,6 +15,8 @@ import HomeHeader from '../components/HomeHeader';
 import axios from 'axios';
 import FormData from 'form-data';
 
+const url = require('../../backendroute').default.baseUrl;
+
 class CreateEventScreen extends React.Component {
   static navigationOptions = {
     drawerLabel: 'Adicionar evento',
@@ -108,7 +110,7 @@ class CreateEventScreen extends React.Component {
   async postEvent() {
     try {
       this.setState({loading: true});
-      const res = await axios.post('http://9345e3a0.ngrok.io/api/event', {
+      const res = await axios.post(`${url}api/event`, {
         name: this.state.name,
         description: this.state.description,
         date: this.state.date.toString(),
@@ -120,7 +122,7 @@ class CreateEventScreen extends React.Component {
         type: this.state.image.mime,
       });
       const saveImageRes = await axios.post(
-        `http://ddea6d0e.ngrok.io/api/event/${res.data.id}/image`,
+        `${url}api/event/${res.data.id}/image`,
         data,
       );
       // TODO: Exibir mensagem de acordo com a resposta da requisição
