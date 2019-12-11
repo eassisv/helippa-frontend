@@ -47,4 +47,4 @@ Navegação principal do aplicativo. Possui três rotas, uma para o `HomeNavigat
 
 ### `HomeNavigator`
 
-Possui duas rotas, uma para a `HomeScree` e outra para a `EventDetailScreen`.
+Possui duas rotas, uma para a `HomeScreen` e outra para a `EventDetailScreen`.
